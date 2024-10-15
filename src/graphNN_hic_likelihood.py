@@ -111,7 +111,7 @@ class Graph_HiC_Likelihood(nn.Module):
         x = self.dropout(x)
 
         x = self.predict_links(x, edge_index_test)  # torch.any(x.isnan())
-        return x  # 返回节点嵌入
+        return x  #  node embedding
     
     def predict_links(self, x, edge_index):
         edge_embeddings = torch.cat([x[edge_index[0]], x[edge_index[1]]], dim=-1)
@@ -202,7 +202,7 @@ def restore_model(
         file_dir:str, 
         device:torch.device)->Tuple[Graph_HiC_Likelihood, torch.optim.Adam, int, torch.optim.lr_scheduler.StepLR]:
     # =============================
-    #           初始化模型
+    #         intialize model
     print("Initializing model...")
     model = Graph_HiC_Likelihood().to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001) # use L2 regularization to penalize the large weights via "weight_decay"
@@ -211,15 +211,14 @@ def restore_model(
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.98)
 
     # =============================
-    #           恢复检查点
+    #           restore ckpt
     fname = get_newest_checkpoint(file_dir)
     if fname:
         checkpoint = torch.load(os.path.join(file_dir, fname), map_location=device)
-        # 恢复模型和优化器状态
+        # Restoring model and optimiser state
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
-        # 恢复其他信息
         epoch_already = checkpoint['epoch']
         loss_train = checkpoint['loss_train']
         loss_vali = checkpoint['loss_vali']
@@ -246,13 +245,13 @@ def restore_and_organize_training_validation_data(
         coverage_required_flag=coverage_required_flag, 
         madeup_flag=madeup_flag,
         debug_flag=debug_flag)
-    # 确定数据集的大小，并计算训练集和测试集的大小
+    # Determine the size of the dataset and calculate the size of the training and test sets
     dataset_size = len(dataset)
     train_size = int(TRAIN_SET_RATIO * dataset_size)
     vali_size = dataset_size - train_size
-    # 使用 random_split 方法将数据集分割成训练集和测试集
+    # Split the dataset into training and test sets using the random_split method
     train_dataset, vali_dataset = random_split(dataset, [train_size, vali_size])
-    # 分别创建训练集和测试集的数据加载器
+    # Create data loaders for the training set and test set separately
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=False)
     vali_loader = DataLoader(vali_dataset, batch_size=BATCH_SIZE, shuffle=False)
     print(f"Number of data Loaded: {len(dataset)}"
@@ -347,8 +346,8 @@ def get_graph_batch(
     """ 
         Finished:
         add the filter_coefficient to filter the small fragments out
-            删除那些不属于任何chormosome 并且没有被移动的小片段，将训练集先变得简单
-            添加每个fragments的hic signal的重心坐标
+            Remove small fragments that don't belong to any chormosome and aren't moved to make the training set simple first
+            Add the centre of gravity coordinates of the hic signal for each fragment
 
 
         organize the graph data for the graph network
@@ -421,8 +420,22 @@ def get_graph_batch(
 
         # Ground truth for the edges
         # used to predict the averaged likelihood (between head) of the edges
-        likelihood_mx_tmp = sigma * likelihood_mx[sample_index, : 2*node_num, :2*node_num].reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4)).float()  # 目前计算的是likelihood的均值
-        likelihood_mx_tmp = 0.5 * (likelihood_mx_tmp + likelihood_mx_tmp.transpose(0, 1))
+        # Ground truth for the edges
+        # used to predict the averaged likelihood (between head) of the edges
+        tmp = 0.5 * (likelihood_mx[sample_index, : 2*node_num, :2*node_num] + likelihood_mx[sample_index, : 2*node_num, :2*node_num].transpose(0, 1))
+        likelihood_mx_tmp = sigma * tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4)).float()  # 目前计算的是likelihood的均值
+        # FINISHED This is a very big mistake ！！！！！Symmetry should not be done after transforming the shape to [node_num, node_num, 4] ！！！！！It should be done when the shape is [2 * node_num, 2 * node_num].
+        # Because [1, 2, 3, 4] and [1, 2, 3, 4] don't really correspond.
+        # The first [1, 2, 3, 4] means [head-head, head-tail, tail-head, tail-tail] respectively, and the second [head-head, tail-head, head-tail, tail-tail].
+        '''
+        mx = torch.arange(36).reshape(6, 6)
+        mx = mx + mx.T 
+        mx = mx.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
+
+        mx1 = torch.arange(36).reshape(6, 6)
+        mx1 = mx1.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
+        mx1 = mx1 + mx1.transpose(0, 1)
+        '''
         truth = likelihood_mx_tmp[edge_index[0], edge_index[1]] # indexing the likelihood of the selected edges  
 
         # check the edge attributes 
@@ -503,7 +516,7 @@ def get_graphs(data_loader:DataLoader, device:torch.device)->Tuple[List[Batch], 
             frag_coverage, \
             frag_start_loc_relative, frag_mass_center_relative,\
             frag_average_density_global, frag_average_hic_interaction, frag_coverage_flag, \
-            frag_repeat_density_flag, frag_repeat_density  = batch
+            frag_repeat_density_flag, frag_repeat_density, total_len  = batch
         
         hic_mx = hic_mx.to(device)
         likelihood_mx = likelihood_mx.to(device)
@@ -651,13 +664,13 @@ if __name__ == "__main__":
             print(f"The mem is: {torch.cuda.get_device_properties(0).total_memory}")
 
     # =============================
-    #           初始化模型
+    #            Initialising the model
     model, optimizer, epoch_already, scheduler = restore_model(
         PATH_SAVE_CHECHPOINT_GRAGPH_LIKELIHOOD, 
         device)
 
     # =============================
-    #           训练数据
+    #           training data loading
     train_graphs, train_names, vali_graphs, vali_names, train_loader, vali_loader = read_data(
         [DIR_SAVE_TRAIN_DATA_HUMAN],
         device=device,
@@ -673,5 +686,5 @@ if __name__ == "__main__":
     epoch, loss, loss_vali = train()
 
     # =============================
-    #          保存检查点
+    #          save the model
     save_checkpoint(epoch=epoch, loss=loss, loss_vali=loss_vali)

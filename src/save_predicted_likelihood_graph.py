@@ -125,7 +125,7 @@ def main():
     print(f"Start: {get_time_stamp()}")
     
     # =============================
-    #           训练数据
+    #         training data
     train_graphs, train_names, vali_graphs, vali_names, train_loader, vali_loader = read_data(
         [DIR_SAVE_TRAIN_DATA_HUMAN],
         device=device,
