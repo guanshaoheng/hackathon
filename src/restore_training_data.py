@@ -60,7 +60,7 @@ class CompressedHicFragDataSet(Dataset):
                 self.nFrags.append(n_frags)
                 self.maxFrags.append(max_num_frags)
                 self.coverage_flag.append(coverage_found)
-                self.repeat_density_flag.append(repeat_density_found) # TODO 这里的 编造的数据中还没有这个特征，还需要debug
+                self.repeat_density_flag.append(repeat_density_found) 
                 fpth = os.path.join(dirPath, fname)
                 self.fpaths.append(fpth)
                 '''
