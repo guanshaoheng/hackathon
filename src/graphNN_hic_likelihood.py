@@ -245,7 +245,6 @@ def restore_and_organize_training_validation_data(
         coverage_required_flag=coverage_required_flag, 
         madeup_flag=madeup_flag,
         debug_flag=debug_flag)
-    # Determine the size of the dataset and calculate the size of the training and test sets
     dataset_size = len(dataset)
     train_size = int(TRAIN_SET_RATIO * dataset_size)
     vali_size = dataset_size - train_size
