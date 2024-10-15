@@ -31,4 +31,6 @@ We propose to develop a GNN-based model to learn the joint likelihood among shuf
 
 # Dataset 
 
-For dataset, please check the [link](https://drive.google.com/drive/folders/1D5fP0aoTjvanmRMuxK1dXl7p3HAFhzIf?usp=drive_link)
+For dataset, please check the [link](https://drive.google.com/drive/folders/1D5fP0aoTjvanmRMuxK1dXl7p3HAFhzIf?usp=drive_link).
+
+To use the PretextView, please check [here](doc/get_started_with_PretextView.md)
