@@ -296,7 +296,7 @@ def get_curated_fragments_order(
 
 
 def main():
-    saved_train_data_path = "dataset/train_data_madeup_simple"
+    saved_train_data_path = "dataset/train_data_madeup"
     
     parser = argparse.ArgumentParser(description='Sort the fragments according to the likelihood matrix.')
     parser.add_argument("-o", '--output', type=str, default=None, help='The output file path.')
@@ -319,7 +319,7 @@ def main():
         saved_train_data_path = args.path
     
 
-    dataset  = CompressedHicFragDataSet([saved_train_data_path], debug_flag=debug_flag, madeup_flag=True)
+    dataset = CompressedHicFragDataSet([saved_train_data_path], debug_flag=debug_flag, madeup_flag=True)
     # data_iter = iter(dataset)
     for i in range(len(dataset)):
         hic_mx, frag_id, scaffid, name, n_frags, frag_lens, distance_mx, likelihood_mx, frag_coverage, frag_start_loc_relative, frag_masss_center_relative, frag_average_density_global, frag_average_hic_interaction, _, _, _, _  = dataset[i]

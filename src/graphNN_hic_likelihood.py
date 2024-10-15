@@ -108,7 +108,7 @@ class Graph_HiC_Likelihood(nn.Module):
             torch.concat([self.conv_list_3[i](x, edge_index, edge_weight=edge_attr[:, i]) for i in range(self.num_edge_attr)], dim=-1)   # [64, 64 * self.num_edge_attr]
         )
 
-        x = self.dropout(x)
+        x = self.dropout(x) # [node_num, hidden_dim * self.num_edge_attr]
 
         x = self.predict_links(x, edge_index_test)  # torch.any(x.isnan())
         return x  #  node embedding
@@ -341,6 +341,8 @@ def get_graph_batch(
         frag_coverage_flag:torch.Tensor,
         frag_repeat_density_flag:torch.Tensor, 
         frag_repeat_density:torch.Tensor,
+        distance_mx:torch.Tensor,
+        total_pixel_len:torch.Tensor,
         sigma:float=SIGMA,
         k_neighbors:int=K_NEIBORS,
         random_neighbor_num:int=NUM_RANDOM_NEIGHBORS,
@@ -348,6 +350,7 @@ def get_graph_batch(
         filter_coefficient:float=FILTER_COEFFICIENT,
         selected_edges_ratio:float=0.2,
         select_edges_mode:str="global_topk",
+        output_selections:str="distance",   # distance or likelihood
         )->Batch:
     """ 
         Finished:
@@ -426,46 +429,32 @@ def get_graph_batch(
         plt.imshow(likelihood_mx[sample_index, : 2 * node_num, :2*node_num].reshape(node_num, 2, node_num, 2).mean(axis=(1, 3)).cpu().numpy(), cmap='jet'); plt.colorbar(); plt.tight_layout() ; plt.savefig(os.path.join("test_fig", f'test_likelihood_mean.png'), dpi=300); plt.close("all")
         """
 
-        # Ground truth for the edges
-        # used to predict the averaged likelihood (between head) of the edges
-        # Ground truth for the edges
-        # used to predict the averaged likelihood (between head) of the edges
-        tmp = 0.5 * (likelihood_mx[sample_index, : 2*node_num, :2*node_num] + likelihood_mx[sample_index, : 2*node_num, :2*node_num].transpose(0, 1))
-        likelihood_mx_tmp = sigma * tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4)).float()  # 目前计算的是likelihood的均值
-        # FINISHED This is a very big mistake ！！！！！Symmetry should not be done after transforming the shape to [node_num, node_num, 4] ！！！！！It should be done when the shape is [2 * node_num, 2 * node_num].
-        # Because [1, 2, 3, 4] and [1, 2, 3, 4] don't really correspond.
-        # The first [1, 2, 3, 4] means [head-head, head-tail, tail-head, tail-tail] respectively, and the second [head-head, tail-head, head-tail, tail-tail].
-        '''
-        mx = torch.arange(36).reshape(6, 6)
-        mx = mx + mx.T 
-        mx = mx.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
+        if output_selections == "likelihood":
+            # Ground truth for the edges
+            # used to predict the averaged likelihood (between head) of the edges
+            # Ground truth for the edges
+            # used to predict the averaged likelihood (between head) of the edges
+            tmp = 0.5 * (likelihood_mx[sample_index, : 2*node_num, :2*node_num] + likelihood_mx[sample_index, : 2*node_num, :2*node_num].transpose(0, 1))
+            likelihood_mx_tmp = sigma * tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4)).float()  # 目前计算的是likelihood的均值
+            # FINISHED This is a very big mistake ！！！！！Symmetry should not be done after transforming the shape to [node_num, node_num, 4] ！！！！！It should be done when the shape is [2 * node_num, 2 * node_num].
+            # Because [1, 2, 3, 4] and [1, 2, 3, 4] don't really correspond.
+            # The first [1, 2, 3, 4] means [head-head, head-tail, tail-head, tail-tail] respectively, and the second [head-head, tail-head, head-tail, tail-tail].
+            '''
+            mx = torch.arange(36).reshape(6, 6)
+            mx = mx + mx.T 
+            mx = mx.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
 
-        mx1 = torch.arange(36).reshape(6, 6)
-        mx1 = mx1.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
-        mx1 = mx1 + mx1.transpose(0, 1)
-        '''
-        # Ground truth for the edges
-        # used to predict the averaged likelihood (between head) of the edges
-        tmp = 0.5 * (likelihood_mx[sample_index, : 2*node_num, :2*node_num] + likelihood_mx[sample_index, : 2*node_num, :2*node_num].transpose(0, 1))
-        likelihood_mx_tmp = sigma * tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4)).float()  # 目前计算的是likelihood的均值
-        # FINISHED This is a very big mistake ！！！！！Symmetry should not be done after transforming the shape to [node_num, node_num, 4] ！！！！！It should be done when the shape is [2 * node_num, 2 * node_num].
-        # Because [1, 2, 3, 4] and [1, 2, 3, 4] don't really correspond.
-        # The first [1, 2, 3, 4] means [head-head, head-tail, tail-head, tail-tail] respectively, and the second [head-head, tail-head, head-tail, tail-tail].
-        '''
-        mx = torch.arange(36).reshape(6, 6)
-        mx = mx + mx.T 
-        mx = mx.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
+            mx1 = torch.arange(36).reshape(6, 6)
+            mx1 = mx1.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
+            mx1 = mx1 + mx1.transpose(0, 1)
+            '''
+            truth = likelihood_mx_tmp[edge_index[0], edge_index[1]] # indexing the likelihood of the selected edges 
 
-        mx1 = torch.arange(36).reshape(6, 6)
-        mx1 = mx1.reshape(3,2,3,2).transpose(1,2).reshape(3,3,4)
-        mx1 = mx1 + mx1.transpose(0, 1)
-        '''
-        truth = likelihood_mx_tmp[edge_index[0], edge_index[1]] # indexing the likelihood of the selected edges  
-
-        # check the edge attributes 
-        if torch.any(truth > 1. * sigma):
-            argmax = truth.argmax()
-            raise ValueError(f"Fatal error: Likelihood max: [{sample_index}, {edge_index[0, argmax]}, {edge_index[1, argmax]}]: {truth.max()}")
+        elif output_selections == "distance":
+            distance_mx_tmp = distance_mx[sample_index, :2*node_num, :2*node_num].float() / total_pixel_len[sample_index].float()
+            distance_mx_tmp = torch.where(distance_mx_tmp> 1.0, torch.tensor(1.0, device=device), distance_mx_tmp)
+            distance_mx_tmp = distance_mx_tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4))
+            truth = distance_mx_tmp[edge_index[0], edge_index[1]] # indexing the likelihood of the selected edges 
 
         # Sample top k neighbors with highest edge weight of every node in the graph
         # TODO whether use the topk or use the threshold to select the edges??? 
@@ -540,14 +529,15 @@ def get_graphs(data_loader:DataLoader, device:torch.device)->Tuple[List[Batch], 
             frag_coverage, \
             frag_start_loc_relative, frag_mass_center_relative,\
             frag_average_density_global, frag_average_hic_interaction, frag_coverage_flag, \
-            frag_repeat_density_flag, frag_repeat_density, total_len  = batch
-            frag_repeat_density_flag, frag_repeat_density, total_len  = batch
+            frag_repeat_density_flag, frag_repeat_density, total_len_in_pixel  = batch
         
         hic_mx = hic_mx.to(device)
         likelihood_mx = likelihood_mx.to(device)
         frag_coverage = frag_coverage.to(device)
         n_frags = n_frags.to(device)
         frag_lens = frag_lens.to(device)
+        distance_mx = distance_mx.to(device)
+        total_len_in_pixel = total_len_in_pixel.to(device)
 
         frag_start_loc_relative = frag_start_loc_relative.to(device)           # [n_frags]
         frag_mass_center_relative = frag_mass_center_relative.to(device)       # [n_frags, 2]
@@ -567,8 +557,10 @@ def get_graphs(data_loader:DataLoader, device:torch.device)->Tuple[List[Batch], 
                 frag_average_density_global, 
                 frag_average_hic_interaction,
                 frag_coverage_flag,
-                frag_repeat_density_flag, frag_repeat_density)
+                frag_repeat_density_flag, frag_repeat_density,
+                distance_mx, total_len_in_pixel,
                 )
+            )
         names.append(name_batch)
     return batch_graphs, names
 
@@ -690,13 +682,11 @@ if __name__ == "__main__":
 
     # =============================
     #            Initialising the model
-    #            Initialising the model
     model, optimizer, epoch_already, scheduler = restore_model(
         PATH_SAVE_CHECHPOINT_GRAGPH_LIKELIHOOD, 
         device)
 
     # =============================
-    #           training data loading
     #           training data loading
     train_graphs, train_names, vali_graphs, vali_names, train_loader, vali_loader = read_data(
         [DIR_SAVE_TRAIN_DATA_HUMAN],
@@ -704,10 +694,6 @@ if __name__ == "__main__":
         converage_required_flag=True,
         debug_flag=DEBUG)
     
-    # =============================
-    #      model visualization
-    # plot_model()
-   
     # =============================
     #      model training
     epoch, loss, loss_vali = train()

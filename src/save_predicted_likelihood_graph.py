@@ -48,7 +48,7 @@ def save_batch_into_file(
             frag_coverage, \
             frag_start_loc_relative, frag_mass_center_relative,\
             frag_average_density_global, frag_average_hic_interaction, frag_coverage_flag, \
-            frag_repeat_density_flag, frag_repeat_density  = loader
+            frag_repeat_density_flag, frag_repeat_density, total_pixel_len  = loader
     node_idx_by_graph = graph_batch.batch
     edge_idx_by_graph = graph_batch.batch[graph_batch.edge_index_test[0]]
     num_graphs = graph_batch.num_graphs
