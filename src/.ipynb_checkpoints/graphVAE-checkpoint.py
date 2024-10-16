@@ -45,6 +45,7 @@ class Graphvae(nn.Module):
 
         self.batchnorm_1 = torch.nn.BatchNorm1d(hidden_dim * heads_num)
         self.batchnorm_2 = torch.nn.BatchNorm1d(hidden_dim * self.num_edge_attr)
+        self.gelu = torch.nn.GELU()
 
     def forward(self, batch:Batch):
         x, edge_index, edge_attr, edge_index_test = batch.x, batch.edge_index, batch.edge_attr, batch.edge_index_test
@@ -69,22 +70,30 @@ class Graphvae(nn.Module):
         #         )
         #     )
         # )
-        x_mu = self.relu(
-            self.batchnorm_2(
-                torch.concat(
+        x_mu = torch.concat(
                 [self.conv_list_mu[i](x, edge_index, edge_weight=edge_attr[:, i]) for i in range(self.num_edge_attr)], 
                 dim=-1
                 )
-            )
-        )
-        x_logstd = self.relu(
-            self.batchnorm_2(
-                torch.concat(
+        x_logstd = torch.concat(
                 [self.conv_list_logstd[i](x, edge_index, edge_weight=edge_attr[:, i]) for i in range(self.num_edge_attr)], 
                 dim=-1
                 )
-            )
-        )
+        # x_mu = self.gelu(
+        #     self.batchnorm_2(
+        #         torch.concat(
+        #         [self.conv_list_mu[i](x, edge_index, edge_weight=edge_attr[:, i]) for i in range(self.num_edge_attr)], 
+        #         dim=-1
+        #         )
+        #     )
+        # )
+        # x_logstd = self.gelu(
+        #     self.batchnorm_2(
+        #         torch.concat(
+        #         [self.conv_list_logstd[i](x, edge_index, edge_weight=edge_attr[:, i]) for i in range(self.num_edge_attr)], 
+        #         dim=-1
+        #         )
+        #     )
+        # )
         distances = self.predict_links(x_mu, edge_index_test)
         return x_mu, x_logstd, distances
         
