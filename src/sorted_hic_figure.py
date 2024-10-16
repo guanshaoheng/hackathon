@@ -9,16 +9,20 @@ import matplotlib.pyplot as plt
 
 """
 export PYTHONPATH=$PYTHONPATH:src
-nohup /nfs/users/nfs_s/sg35/.conda/envs/autohic_new/bin/python -u src/sorted_hic_figure.py -c 0 -m > results/predicted_likelihood_graph_madeup/sorted_hic_figure_madeup.log 2>&1 &
+nohup /nfs/users/nfs_s/sg35/.conda/envs/autohic_new/bin/python -u src/sorted_hic_figure.py -c 0 -m > results/predicted_likelihood_graph_madeup_test/sorted_hic_figure_madeup.log 2>&1 &
 
 """
 
 """
     Draw the sorted hic matrix according to the predicted results
 """
-saved_human_hic = DIR_SAVE_FULL_HICMX_HUMAN
-predicted_results_file_pth = os.path.join(PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH, "curated_order.txt")
-curated_hic_figrue_save_dir = os.path.join(PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH, "curated_hic_fig")
+
+TEST_FLAG = True
+
+path_save_predicted_results = PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH if not TEST_FLAG else PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH_TEST
+saved_human_hic = DIR_SAVE_FULL_HICMX_HUMAN if not TEST_FLAG else DIR_SAVE_FULL_HICMX_HUMAN_TEST
+predicted_results_file_pth = os.path.join(path_save_predicted_results, "curated_order.txt")
+curated_hic_figrue_save_dir = os.path.join(path_save_predicted_results, "curated_hic_fig")
 check_and_mkdir(curated_hic_figrue_save_dir)
 
 

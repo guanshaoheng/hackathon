@@ -8,7 +8,7 @@ from config_plot import *
 from utils_network import check_select_device
 from utils import check_and_mkdir, get_time_stamp, DEBUG
 from tqdm import tqdm
-from sort_likelihood import sort_fragments_according_likelihood_matrix, get_curated_fragments_order, output_into_file
+from sort_likelihood import sort_fragments_according_likelihood_or_distance_matrix, get_curated_fragments_order, output_into_file
 
 '''
 export PYTHONPATH=src:$PYTHONPATH
@@ -28,6 +28,11 @@ torch.manual_seed(RANDOM_SEED)
 model, _, epoch_already, _ = restore_model(PATH_SAVE_CHECHPOINT_GRAGPH_LIKELIHOOD, device)
 model.eval()
 
+TEST_FLAG = True
+
+dir_save_train_data = DIR_SAVE_TRAIN_DATA_HUMAN_TEST if TEST_FLAG else DIR_SAVE_TRAIN_DATA_HUMAN
+dir_save_full_hic_data = DIR_SAVE_FULL_HICMX_HUMAN_TEST if TEST_FLAG else DIR_SAVE_FULL_HICMX_HUMAN
+path_save_predicted_results = PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH_TEST if TEST_FLAG else PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH
 
 def save_batch_into_file(
         graph_batch:Batch, 
@@ -35,7 +40,7 @@ def save_batch_into_file(
         loader:DataLoader,
         train_data_flag:bool=False, plot_flag=False,
         file=sys.stdout,
-        save_dir:str=PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH,
+        save_dir:str=path_save_predicted_results,
         )->None:
 
     check_and_mkdir(save_dir)
@@ -78,13 +83,16 @@ def save_batch_into_file(
             frag_id=frag_id[i],
             frag_lens=frag_lens[i],
             name=name,
+            echo_flag=True,
         )
-        chromosomes_order, chromosomes_inverse_flag = sort_fragments_according_likelihood_matrix(
+        chromosomes_order, chromosomes_inverse_flag = sort_fragments_according_likelihood_or_distance_matrix(
             pre_mx,
+            # truth_mx,
             nfrags=node_num,
             frag_lens=frag_lens[i],
             name=name,
-            echo_flag=False,
+            echo_flag=True,
+            mx_type="likelihood",
         )
         # map the order to the original order, as there are some small fragments are filter out during orgainizing the graph data
         chromosomes_order = [[new_idx_to_original_idx[idx-1].item()+1 for idx in chromosome] for chromosome in chromosomes_order]
@@ -127,15 +135,15 @@ def main():
     # =============================
     #         training data
     train_graphs, train_names, vali_graphs, vali_names, train_loader, vali_loader = read_data(
-        [DIR_SAVE_TRAIN_DATA_HUMAN],
+        [dir_save_train_data], 
         device=device,
         converage_required_flag=True,
         debug_flag=DEBUG)
 
-    check_and_mkdir(PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH)
+    check_and_mkdir(path_save_predicted_results)
 
-    curated_order_save_file = open(os.path.join(PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH, "curated_order.txt"), 'w')
-    fig_save_dir = os.path.join(PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH, "likelihood_fig")
+    curated_order_save_file = open(os.path.join(path_save_predicted_results, "curated_order.txt"), 'w')
+    fig_save_dir = os.path.join(path_save_predicted_results, "likelihood_fig")
     check_and_mkdir(fig_save_dir)
 
     print("="*20)
