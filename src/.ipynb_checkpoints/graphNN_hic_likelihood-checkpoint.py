@@ -734,6 +734,7 @@ if __name__ == "__main__":
     epoch_already = 0
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.98)
+    
 
     # =============================
     #           training data loading
