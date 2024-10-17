@@ -137,6 +137,7 @@ class Graph_HiC_Likelihood(nn.Module):
         )
         x = self.relu(
             torch.concat([self.conv_list_3[i](x, edge_index, edge_weight=edge_attr[:, i]) for i in range(self.num_edge_attr)], dim=-1)   # [64, 64 * self.num_edge_attr]
+        )
 
         return x  #  node embedding
 
