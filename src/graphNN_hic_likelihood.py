@@ -61,7 +61,7 @@ class MaxPoolingConv(MessagePassing):
     
 
 class Graph_HiC_Likelihood(nn.Module):
-    def __init__(self, input_dim=74, hidden_dim=64, hidden_likelihood_dim=128, heads_num=4, num_edge_attr=5, output_dim=4):
+    def __init__(self, input_dim=74, hidden_dim=128, hidden_likelihood_dim=128, heads_num=4, num_edge_attr=5, output_dim=4):
         super().__init__()
 
         self.num_edge_attr = num_edge_attr
@@ -80,16 +80,46 @@ class Graph_HiC_Likelihood(nn.Module):
         self.conv_list_3 = nn.ModuleList([
             GCNConv(hidden_dim * self.num_edge_attr, hidden_dim) for _ in range(num_edge_attr)
         ])
+        self.conv_list_4 = nn.ModuleList([
+            GCNConv(hidden_dim * self.num_edge_attr, hidden_dim) for _ in range(num_edge_attr)
+        ])
         
         self.link_likelihood = nn.Linear(hidden_dim * 2 * self.num_edge_attr, hidden_likelihood_dim)
         self.link_likelihood1 = nn.Linear(hidden_likelihood_dim, hidden_likelihood_dim)
-        self.link_likelihood2 = nn.Linear(hidden_likelihood_dim, output_dim)
+        self.link_likelihood2 = nn.Linear(hidden_likelihood_dim, hidden_likelihood_dim)
+        self.link_likelihood3 = nn.Linear(hidden_likelihood_dim, hidden_likelihood_dim)
+        self.link_likelihood4 = nn.Linear(hidden_likelihood_dim, output_dim)
 
         self.sigmoid = torch.nn.Sigmoid()
         self.relu = torch.nn.ReLU()
         self.dropout = torch.nn.Dropout(p=0.5)
 
     def forward(self, batch:Batch):
+
+        x = self.forward_x_embedding(batch)
+
+        x = self.dropout(x) # [node_num, hidden_dim * self.num_edge_attr]
+
+        x = self.predict_links(x, batch.edge_index_test)  # torch.any(x.isnan())
+        return x  #  node embedding
+    
+    def predict_links(self, x, edge_index):
+        """
+            TODO there maybe some problem as the prediction of  [node_1, node_2] should be 
+                different from the prediction of [node_2, node_1]
+
+                检查这里的计算是不是有问题
+
+                [node_1, node_2] : [head1->head1, head1->tail2, tail1->head2, tail1->tail2]
+                [node_2, node_1] : [head1->head1, tail1->head2, head1->tail2, tail1->tail2]
+        """
+        edge_embeddings = torch.cat([x[edge_index[0]], x[edge_index[1]]], dim=-1)
+        edge_embeddings_1 = torch.cat([x[edge_index[1]], x[edge_index[0]]], dim=-1)
+        tmp1 = self.link_likelihood4(self.relu(self.link_likelihood3(self.link_likelihood2(self.relu(self.link_likelihood1(self.relu(self.link_likelihood(edge_embeddings)))))))).squeeze(-1)
+        tmp2 = self.link_likelihood4(self.relu(self.link_likelihood3(self.link_likelihood2(self.relu(self.link_likelihood1(self.relu(self.link_likelihood(edge_embeddings_1)))))))).squeeze(-1)[:, [0, 2, 1, 3]]
+        return 0.5 * (tmp1 + tmp2)
+    
+    def forward_x_embedding(self, batch:Batch):
         x, edge_index, edge_attr, edge_index_test = batch.x, batch.edge_index, batch.edge_attr, batch.edge_index_test
 
         # four parallell layers of the graph convolution
@@ -107,20 +137,9 @@ class Graph_HiC_Likelihood(nn.Module):
         )
         x = self.relu(
             torch.concat([self.conv_list_3[i](x, edge_index, edge_weight=edge_attr[:, i]) for i in range(self.num_edge_attr)], dim=-1)   # [64, 64 * self.num_edge_attr]
-        )        
-        x = self.dropout(x) # [node_num, hidden_dim * self.num_edge_attr]
 
-        x = self.predict_links(x, edge_index_test)  # torch.any(x.isnan())
         return x  #  node embedding
-        return x  #  node embedding
-    
-    def predict_links(self, x, edge_index):
-        edge_embeddings = torch.cat([x[edge_index[0]], x[edge_index[1]]], dim=-1)
-        edge_embeddings_1 = torch.cat([x[edge_index[1]], x[edge_index[0]]], dim=-1)
-        return 0.5 * (
-            self.link_likelihood2(self.relu(self.link_likelihood1(self.relu(self.link_likelihood(edge_embeddings))))).squeeze(-1)+
-            self.link_likelihood2(self.relu(self.link_likelihood1(self.relu(self.link_likelihood(edge_embeddings_1))))).squeeze(-1)
-        )
+
 
 def sample_top_k_neighbors(
         edge_index, edge_weight, num_nodes, truth, 
@@ -207,14 +226,13 @@ def restore_model(
     #         intialize model
     print("Initializing model...")
     model = Graph_HiC_Likelihood().to(device)
-    # model = Graph_HiC_Likelihood_alt().to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001) # use L2 regularization to penalize the large weights via "weight_decay"
     # optimizer = torch.optim.RMSprop(model.parameters(), lr=0.001, alpha=0.99, eps=1e-08, weight_decay=0, momentum=0, centered=False)
+    #  TODO after the weight_decay over 0.006, the model will not be trained...
     epoch_already = 0
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.98)
 
     # =============================
-    #           restore ckpt
     #           restore ckpt
     fname = get_newest_checkpoint(file_dir)
     if fname:
@@ -357,14 +375,14 @@ def get_graph_batch(
         frag_repeat_density:torch.Tensor,
         distance_mx:torch.Tensor,
         total_pixel_len:torch.Tensor,
-        sigma:float=SIGMA,
         k_neighbors:int=K_NEIBORS,
         random_neighbor_num:int=NUM_RANDOM_NEIGHBORS,
         random_neighbor_test_num:int=NUM_RANDOM_NEIGHBORS_TEST,
         filter_coefficient:float=FILTER_COEFFICIENT,
         selected_edges_ratio:float=0.2,
+        random_selected_edges_ratio:float=0.1,
         select_edges_mode:str="global_topk",
-        output_selections:str="distance",   # distance or likelihood
+        output_selections:str="likelihood",   # distance or likelihood
         )->Batch:
     """ 
         Finished:
@@ -448,8 +466,11 @@ def get_graph_batch(
             # used to predict the averaged likelihood (between head) of the edges
             # Ground truth for the edges
             # used to predict the averaged likelihood (between head) of the edges
-            tmp = 0.5 * (likelihood_mx[sample_index, : 2*node_num, :2*node_num] + likelihood_mx[sample_index, : 2*node_num, :2*node_num].transpose(0, 1))
-            likelihood_mx_tmp = sigma * tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4)).float()  # 目前计算的是likelihood的均值
+            if likelihood_mx[sample_index].shape != torch.Size([2 * MAX_NUM_FRAG, 2 * MAX_NUM_FRAG]):
+                raise RuntimeError(f"Please check the shape of the likelihood matrix, the shape is {likelihood_mx[sample_index].shape}")
+            tmp = 0.5 * (likelihood_mx[sample_index, : 2*node_num, :2*node_num] + likelihood_mx[sample_index, : 2*node_num, :2*node_num].T)
+            tmp = torch.where(tmp == 0., torch.tensor(-1.0, device=device), tmp)  # set the 0 likelihood to -1 
+            likelihood_mx_tmp = tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4)).float()  # 目前计算的是likelihood的均值
             # FINISHED This is a very big mistake ！！！！！Symmetry should not be done after transforming the shape to [node_num, node_num, 4] ！！！！！It should be done when the shape is [2 * node_num, 2 * node_num].
             # Because [1, 2, 3, 4] and [1, 2, 3, 4] don't really correspond.
             # The first [1, 2, 3, 4] means [head-head, head-tail, tail-head, tail-tail] respectively, and the second [head-head, tail-head, head-tail, tail-tail].
@@ -466,9 +487,11 @@ def get_graph_batch(
 
         elif output_selections == "distance":
             distance_mx_tmp = distance_mx[sample_index, :2*node_num, :2*node_num].float() / total_pixel_len[sample_index].float()
-            distance_mx_tmp = torch.where(distance_mx_tmp> 1.0, torch.tensor(1.0, device=device), distance_mx_tmp)
+            distance_mx_tmp = torch.where(distance_mx_tmp > 1.0, torch.tensor(1.0, device=device), distance_mx_tmp)
             distance_mx_tmp = distance_mx_tmp.reshape(node_num, 2, node_num, 2).transpose(1, 2).reshape((node_num, node_num, 4))
             truth = distance_mx_tmp[edge_index[0], edge_index[1]] # indexing the likelihood of the selected edges 
+        else:
+            raise RuntimeError(f"Please check the output_selections which is ({output_selections}), the value should be 'distance' or 'likelihood'")
 
         # Sample top k neighbors with highest edge weight of every node in the graph
         # TODO whether use the topk or use the threshold to select the edges??? 
@@ -497,7 +520,7 @@ def get_graph_batch(
             left_after_topk = torch.ones(len(tmp), dtype=torch.bool, device=device)
             left_after_topk[topk_indices] = False
             unseen_indices = torch.arange(len(tmp), device=device)[left_after_topk]
-            rand_indices = unseen_indices[torch.randperm(unseen_indices.size(0))[:int(len(tmp) * 0.02)]]
+            rand_indices = unseen_indices[torch.randperm(unseen_indices.size(0))[:int(len(tmp) * random_selected_edges_ratio)]]
             selected_indices = torch.concat([topk_indices, rand_indices], dim=0)
             selected_indices = selected_indices[torch.randperm(selected_indices.size(0))]
             edge_attr_topk = edge_attr[selected_indices]
@@ -749,5 +772,4 @@ if __name__ == "__main__":
 
     # =============================
     #          save the model
-    #          save the model
-    save_checkpoint(modelname=sys.argv[1], epoch=epoch, loss=loss, loss_vali=loss_vali, history=history)
+    save_checkpoint(epoch=epoch, loss=loss, loss_vali=loss_vali)

@@ -1,0 +1,601 @@
+Warning: Unknown args: 
+Update N_EPOCHS: 10000
+Update SHOW_PER_EPOCH: 20
+Update MADEUP_DATA_INCLUDE_FLAG: False
+Start time: 20241016-00:17
+
+====================
+Dir to save the trained network: /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup
+cuda is available
+Number of CUDA devices: 1
+Device 0:
+_CudaDeviceProperties(name='NVIDIA A100-SXM4-80GB', major=8, minor=0, total_memory=81037MB, multi_processor_count=108)
+The mem is: 84974239744
+Initializing model...
+
+Warning: No checkpoint file found in /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup. Return None.
+
+=============================
+Data Loading...
+Traceback (most recent call last):
+  File "/lustre/scratch125/ids/team117-assembly/hackathon/src/graphNN_hic_likelihood.py", line 710, in <module>
+    
+  File "/lustre/scratch125/ids/team117-assembly/hackathon/src/graphNN_hic_likelihood.py", line 658, in read_data
+    debug_flag=False,
+  File "/lustre/scratch125/ids/team117-assembly/hackathon/src/graphNN_hic_likelihood.py", line 261, in restore_and_organize_training_validation_data
+    )->Tuple[DataLoader, DataLoader]:
+  File "/lustre/scratch125/ids/team117-assembly/hackathon/src/restore_training_data.py", line 39, in __init__
+    self.__initial_data_sets(dir_lists)
+  File "/lustre/scratch125/ids/team117-assembly/hackathon/src/restore_training_data.py", line 93, in __initial_data_sets
+    *optional = torch.load(fpth)
+  File "/nfs/users/nfs_s/sg35/.conda/envs/autohic_new/lib/python3.9/site-packages/torch/serialization.py", line 607, in load
+    return _load(opened_zipfile, map_location, pickle_module, **pickle_load_args)
+  File "/nfs/users/nfs_s/sg35/.conda/envs/autohic_new/lib/python3.9/site-packages/torch/serialization.py", line 882, in _load
+    result = unpickler.load()
+  File "/nfs/users/nfs_s/sg35/.conda/envs/autohic_new/lib/python3.9/site-packages/torch/serialization.py", line 857, in persistent_load
+    load_tensor(data_type, size, key, _maybe_decode_ascii(location))
+  File "/nfs/users/nfs_s/sg35/.conda/envs/autohic_new/lib/python3.9/site-packages/torch/serialization.py", line 845, in load_tensor
+    storage = zip_file.get_storage_from_record(name, size, dtype).storage()
+KeyboardInterrupt
+ch [160/10000], Loss train: 3.9520e-03, Loss vali: 1.8776e-01, EpochTime: 0.00mins ConsumedTime: 0.73mins
+Epoch [180/10000], Loss train: 3.5703e-03, Loss vali: 1.8316e-01, EpochTime: 0.00mins ConsumedTime: 0.76mins
+Epoch [200/10000], Loss train: 4.5044e-03, Loss vali: 2.1316e-01, EpochTime: 0.00mins ConsumedTime: 0.80mins
+Epoch [220/10000], Loss train: 1.4825e-02, Loss vali: 1.8728e-01, EpochTime: 0.00mins ConsumedTime: 0.83mins
+Epoch [240/10000], Loss train: 4.1790e-03, Loss vali: 1.8067e-01, EpochTime: 0.00mins ConsumedTime: 0.86mins
+Epoch [260/10000], Loss train: 3.7319e-03, Loss vali: 1.8563e-01, EpochTime: 0.00mins ConsumedTime: 0.90mins
+Epoch [280/10000], Loss train: 3.4175e-03, Loss vali: 1.7232e-01, EpochTime: 0.00mins ConsumedTime: 0.93mins
+Epoch [300/10000], Loss train: 3.3220e-03, Loss vali: 1.8005e-01, EpochTime: 0.00mins ConsumedTime: 0.96mins
+Epoch [320/10000], Loss train: 3.3106e-03, Loss vali: 1.7933e-01, EpochTime: 0.00mins ConsumedTime: 1.00mins
+Epoch [340/10000], Loss train: 3.1839e-03, Loss vali: 1.8688e-01, EpochTime: 0.00mins ConsumedTime: 1.03mins
+Epoch [360/10000], Loss train: 3.0820e-03, Loss vali: 1.7429e-01, EpochTime: 0.00mins ConsumedTime: 1.06mins
+Epoch [380/10000], Loss train: 6.8718e-03, Loss vali: 1.4632e-01, EpochTime: 0.00mins ConsumedTime: 1.10mins
+Epoch [400/10000], Loss train: 3.6127e-03, Loss vali: 1.5174e-01, EpochTime: 0.00mins ConsumedTime: 1.13mins
+Epoch [420/10000], Loss train: 3.2699e-03, Loss vali: 1.6662e-01, EpochTime: 0.00mins ConsumedTime: 1.16mins
+Epoch [440/10000], Loss train: 3.1152e-03, Loss vali: 1.7357e-01, EpochTime: 0.00mins ConsumedTime: 1.20mins
+Epoch [460/10000], Loss train: 3.0070e-03, Loss vali: 1.6329e-01, EpochTime: 0.00mins ConsumedTime: 1.23mins
+Epoch [480/10000], Loss train: 2.9364e-03, Loss vali: 1.6525e-01, EpochTime: 0.00mins ConsumedTime: 1.26mins
+Epoch [500/10000], Loss train: 2.9127e-03, Loss vali: 1.7278e-01, EpochTime: 0.00mins ConsumedTime: 1.30mins
+Epoch [520/10000], Loss train: 2.8807e-03, Loss vali: 1.8121e-01, EpochTime: 0.00mins ConsumedTime: 1.33mins
+Epoch [540/10000], Loss train: 2.8388e-03, Loss vali: 1.6545e-01, EpochTime: 0.00mins ConsumedTime: 1.36mins
+Epoch [560/10000], Loss train: 2.8332e-03, Loss vali: 1.7381e-01, EpochTime: 0.00mins ConsumedTime: 1.40mins
+Epoch [580/10000], Loss train: 2.7659e-03, Loss vali: 1.7249e-01, EpochTime: 0.00mins ConsumedTime: 1.43mins
+Epoch [600/10000], Loss train: 2.8070e-03, Loss vali: 1.8920e-01, EpochTime: 0.00mins ConsumedTime: 1.46mins
+Epoch [620/10000], Loss train: 2.7064e-03, Loss vali: 1.9506e-01, EpochTime: 0.00mins ConsumedTime: 1.50mins
+Epoch [640/10000], Loss train: 1.3573e-02, Loss vali: 9.9867e-02, EpochTime: 0.00mins ConsumedTime: 1.53mins
+Epoch [660/10000], Loss train: 3.3919e-03, Loss vali: 1.2846e-01, EpochTime: 0.00mins ConsumedTime: 1.57mins
+Epoch [680/10000], Loss train: 3.2383e-03, Loss vali: 1.4141e-01, EpochTime: 0.00mins ConsumedTime: 1.60mins
+Epoch [700/10000], Loss train: 2.9538e-03, Loss vali: 1.3507e-01, EpochTime: 0.00mins ConsumedTime: 1.63mins
+Epoch [720/10000], Loss train: 2.8923e-03, Loss vali: 1.3172e-01, EpochTime: 0.00mins ConsumedTime: 1.67mins
+Epoch [740/10000], Loss train: 2.7721e-03, Loss vali: 1.3504e-01, EpochTime: 0.00mins ConsumedTime: 1.70mins
+Epoch [760/10000], Loss train: 2.6790e-03, Loss vali: 1.3759e-01, EpochTime: 0.00mins ConsumedTime: 1.73mins
+Epoch [780/10000], Loss train: 2.4487e-03, Loss vali: 1.3907e-01, EpochTime: 0.00mins ConsumedTime: 1.77mins
+Epoch [800/10000], Loss train: 3.5591e-03, Loss vali: 1.2127e-01, EpochTime: 0.00mins ConsumedTime: 1.80mins
+Epoch [820/10000], Loss train: 2.4891e-03, Loss vali: 1.4986e-01, EpochTime: 0.00mins ConsumedTime: 1.83mins
+Epoch [840/10000], Loss train: 2.3623e-03, Loss vali: 1.4187e-01, EpochTime: 0.00mins ConsumedTime: 1.87mins
+Epoch [860/10000], Loss train: 2.2915e-03, Loss vali: 1.4620e-01, EpochTime: 0.00mins ConsumedTime: 1.90mins
+Epoch [880/10000], Loss train: 2.2417e-03, Loss vali: 1.4825e-01, EpochTime: 0.00mins ConsumedTime: 1.93mins
+Epoch [900/10000], Loss train: 2.0995e-03, Loss vali: 1.5743e-01, EpochTime: 0.00mins ConsumedTime: 1.97mins
+Epoch [920/10000], Loss train: 2.0431e-03, Loss vali: 1.7502e-01, EpochTime: 0.00mins ConsumedTime: 2.00mins
+Epoch [940/10000], Loss train: 1.9508e-03, Loss vali: 1.5778e-01, EpochTime: 0.00mins ConsumedTime: 2.03mins
+Epoch [960/10000], Loss train: 1.8026e-03, Loss vali: 1.6281e-01, EpochTime: 0.00mins ConsumedTime: 2.07mins
+Epoch [980/10000], Loss train: 1.7299e-03, Loss vali: 1.7302e-01, EpochTime: 0.00mins ConsumedTime: 2.10mins
+Epoch [1000/10000], Loss train: 1.6542e-03, Loss vali: 1.8659e-01, EpochTime: 0.00mins ConsumedTime: 2.13mins
+
+=============================
+Saved checkpoint at epoch 1001
+loss train 1.6542e-03
+loss vali 1.8659e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:19.pth
+
+Epoch [1020/10000], Loss train: 1.4960e-03, Loss vali: 1.7388e-01, EpochTime: 0.00mins ConsumedTime: 2.17mins
+Epoch [1040/10000], Loss train: 1.3906e-03, Loss vali: 1.7659e-01, EpochTime: 0.00mins ConsumedTime: 2.20mins
+Epoch [1060/10000], Loss train: 1.4217e-03, Loss vali: 1.7750e-01, EpochTime: 0.00mins ConsumedTime: 2.23mins
+Epoch [1080/10000], Loss train: 1.3988e-03, Loss vali: 1.7330e-01, EpochTime: 0.00mins ConsumedTime: 2.27mins
+Epoch [1100/10000], Loss train: 1.2896e-03, Loss vali: 1.7166e-01, EpochTime: 0.00mins ConsumedTime: 2.30mins
+Epoch [1120/10000], Loss train: 1.2314e-03, Loss vali: 1.8356e-01, EpochTime: 0.00mins ConsumedTime: 2.33mins
+Epoch [1140/10000], Loss train: 1.1935e-03, Loss vali: 1.8525e-01, EpochTime: 0.00mins ConsumedTime: 2.37mins
+Epoch [1160/10000], Loss train: 1.1166e-03, Loss vali: 1.7657e-01, EpochTime: 0.00mins ConsumedTime: 2.40mins
+Epoch [1180/10000], Loss train: 1.0190e-03, Loss vali: 1.9547e-01, EpochTime: 0.00mins ConsumedTime: 2.43mins
+Epoch [1200/10000], Loss train: 1.7944e-03, Loss vali: 1.6313e-01, EpochTime: 0.00mins ConsumedTime: 2.47mins
+Epoch [1220/10000], Loss train: 1.0774e-03, Loss vali: 1.7916e-01, EpochTime: 0.00mins ConsumedTime: 2.50mins
+Epoch [1240/10000], Loss train: 1.6770e-03, Loss vali: 1.7400e-01, EpochTime: 0.00mins ConsumedTime: 2.53mins
+Epoch [1260/10000], Loss train: 1.0409e-03, Loss vali: 1.8598e-01, EpochTime: 0.00mins ConsumedTime: 2.57mins
+Epoch [1280/10000], Loss train: 9.3104e-04, Loss vali: 1.8571e-01, EpochTime: 0.00mins ConsumedTime: 2.60mins
+Epoch [1300/10000], Loss train: 9.2995e-04, Loss vali: 1.9173e-01, EpochTime: 0.00mins ConsumedTime: 2.63mins
+Epoch [1320/10000], Loss train: 9.0486e-04, Loss vali: 1.9877e-01, EpochTime: 0.00mins ConsumedTime: 2.67mins
+Epoch [1340/10000], Loss train: 8.3381e-04, Loss vali: 2.0026e-01, EpochTime: 0.00mins ConsumedTime: 2.70mins
+Epoch [1360/10000], Loss train: 7.6349e-04, Loss vali: 1.9899e-01, EpochTime: 0.00mins ConsumedTime: 2.73mins
+Epoch [1380/10000], Loss train: 8.7693e-04, Loss vali: 1.8761e-01, EpochTime: 0.00mins ConsumedTime: 2.77mins
+Epoch [1400/10000], Loss train: 8.0388e-04, Loss vali: 1.8528e-01, EpochTime: 0.00mins ConsumedTime: 2.80mins
+Epoch [1420/10000], Loss train: 7.9756e-04, Loss vali: 1.9507e-01, EpochTime: 0.00mins ConsumedTime: 2.83mins
+Epoch [1440/10000], Loss train: 7.4396e-04, Loss vali: 1.8324e-01, EpochTime: 0.00mins ConsumedTime: 2.87mins
+Epoch [1460/10000], Loss train: 7.2614e-04, Loss vali: 2.0422e-01, EpochTime: 0.00mins ConsumedTime: 2.90mins
+Epoch [1480/10000], Loss train: 6.5538e-04, Loss vali: 2.0760e-01, EpochTime: 0.00mins ConsumedTime: 2.93mins
+Epoch [1500/10000], Loss train: 6.5377e-04, Loss vali: 2.0469e-01, EpochTime: 0.00mins ConsumedTime: 2.97mins
+Epoch [1520/10000], Loss train: 7.0892e-04, Loss vali: 1.9918e-01, EpochTime: 0.00mins ConsumedTime: 3.00mins
+Epoch [1540/10000], Loss train: 6.4329e-04, Loss vali: 1.8494e-01, EpochTime: 0.00mins ConsumedTime: 3.03mins
+Epoch [1560/10000], Loss train: 6.4180e-04, Loss vali: 1.9152e-01, EpochTime: 0.00mins ConsumedTime: 3.07mins
+Epoch [1580/10000], Loss train: 2.7891e-03, Loss vali: 1.4792e-01, EpochTime: 0.00mins ConsumedTime: 3.10mins
+Epoch [1600/10000], Loss train: 1.1346e-03, Loss vali: 1.5599e-01, EpochTime: 0.00mins ConsumedTime: 3.13mins
+Epoch [1620/10000], Loss train: 9.1669e-04, Loss vali: 1.7306e-01, EpochTime: 0.00mins ConsumedTime: 3.17mins
+Epoch [1640/10000], Loss train: 7.4859e-04, Loss vali: 1.7631e-01, EpochTime: 0.00mins ConsumedTime: 3.20mins
+Epoch [1660/10000], Loss train: 6.8214e-04, Loss vali: 1.8669e-01, EpochTime: 0.00mins ConsumedTime: 3.23mins
+Epoch [1680/10000], Loss train: 6.3136e-04, Loss vali: 1.7764e-01, EpochTime: 0.00mins ConsumedTime: 3.27mins
+Epoch [1700/10000], Loss train: 6.1082e-04, Loss vali: 1.8748e-01, EpochTime: 0.00mins ConsumedTime: 3.30mins
+Epoch [1720/10000], Loss train: 5.5491e-04, Loss vali: 1.8910e-01, EpochTime: 0.00mins ConsumedTime: 3.33mins
+Epoch [1740/10000], Loss train: 5.4629e-04, Loss vali: 1.9648e-01, EpochTime: 0.00mins ConsumedTime: 3.37mins
+Epoch [1760/10000], Loss train: 5.7317e-04, Loss vali: 1.9624e-01, EpochTime: 0.00mins ConsumedTime: 3.40mins
+Epoch [1780/10000], Loss train: 5.7925e-04, Loss vali: 1.8951e-01, EpochTime: 0.00mins ConsumedTime: 3.43mins
+Epoch [1800/10000], Loss train: 5.6915e-04, Loss vali: 2.0257e-01, EpochTime: 0.00mins ConsumedTime: 3.47mins
+Epoch [1820/10000], Loss train: 5.3034e-04, Loss vali: 1.9248e-01, EpochTime: 0.00mins ConsumedTime: 3.50mins
+Epoch [1840/10000], Loss train: 5.3145e-04, Loss vali: 1.9520e-01, EpochTime: 0.00mins ConsumedTime: 3.53mins
+Epoch [1860/10000], Loss train: 4.7061e-04, Loss vali: 2.0515e-01, EpochTime: 0.00mins ConsumedTime: 3.56mins
+Epoch [1880/10000], Loss train: 5.1149e-04, Loss vali: 1.9363e-01, EpochTime: 0.00mins ConsumedTime: 3.60mins
+Epoch [1900/10000], Loss train: 4.5546e-04, Loss vali: 2.0618e-01, EpochTime: 0.00mins ConsumedTime: 3.63mins
+Epoch [1920/10000], Loss train: 4.7797e-04, Loss vali: 2.0018e-01, EpochTime: 0.00mins ConsumedTime: 3.66mins
+Epoch [1940/10000], Loss train: 4.8646e-04, Loss vali: 2.0492e-01, EpochTime: 0.00mins ConsumedTime: 3.70mins
+Epoch [1960/10000], Loss train: 5.0534e-04, Loss vali: 2.0004e-01, EpochTime: 0.00mins ConsumedTime: 3.73mins
+Epoch [1980/10000], Loss train: 4.7559e-04, Loss vali: 1.9536e-01, EpochTime: 0.00mins ConsumedTime: 3.76mins
+Epoch [2000/10000], Loss train: 4.2739e-04, Loss vali: 1.9963e-01, EpochTime: 0.00mins ConsumedTime: 3.80mins
+
+=============================
+Saved checkpoint at epoch 2001
+loss train 4.2739e-04
+loss vali 1.9963e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:21.pth
+
+Epoch [2020/10000], Loss train: 4.6895e-04, Loss vali: 2.0448e-01, EpochTime: 0.00mins ConsumedTime: 3.83mins
+Epoch [2040/10000], Loss train: 4.5655e-04, Loss vali: 1.9362e-01, EpochTime: 0.00mins ConsumedTime: 3.87mins
+Epoch [2060/10000], Loss train: 4.6185e-04, Loss vali: 1.9287e-01, EpochTime: 0.00mins ConsumedTime: 3.90mins
+Epoch [2080/10000], Loss train: 4.1891e-04, Loss vali: 2.0243e-01, EpochTime: 0.00mins ConsumedTime: 3.93mins
+Epoch [2100/10000], Loss train: 4.2640e-04, Loss vali: 1.9666e-01, EpochTime: 0.00mins ConsumedTime: 3.97mins
+Epoch [2120/10000], Loss train: 4.0511e-04, Loss vali: 1.9585e-01, EpochTime: 0.00mins ConsumedTime: 4.00mins
+Epoch [2140/10000], Loss train: 4.1539e-04, Loss vali: 2.0139e-01, EpochTime: 0.00mins ConsumedTime: 4.03mins
+Epoch [2160/10000], Loss train: 3.8805e-04, Loss vali: 1.9601e-01, EpochTime: 0.00mins ConsumedTime: 4.07mins
+Epoch [2180/10000], Loss train: 3.9286e-04, Loss vali: 2.0181e-01, EpochTime: 0.00mins ConsumedTime: 4.10mins
+Epoch [2200/10000], Loss train: 3.8482e-04, Loss vali: 2.0596e-01, EpochTime: 0.00mins ConsumedTime: 4.13mins
+Epoch [2220/10000], Loss train: 3.6818e-04, Loss vali: 2.0525e-01, EpochTime: 0.00mins ConsumedTime: 4.17mins
+Epoch [2240/10000], Loss train: 3.7995e-04, Loss vali: 2.0941e-01, EpochTime: 0.00mins ConsumedTime: 4.20mins
+Epoch [2260/10000], Loss train: 3.4071e-04, Loss vali: 2.0453e-01, EpochTime: 0.00mins ConsumedTime: 4.23mins
+Epoch [2280/10000], Loss train: 3.5695e-04, Loss vali: 2.1104e-01, EpochTime: 0.00mins ConsumedTime: 4.27mins
+Epoch [2300/10000], Loss train: 4.0534e-04, Loss vali: 1.9485e-01, EpochTime: 0.00mins ConsumedTime: 4.30mins
+Epoch [2320/10000], Loss train: 3.4942e-04, Loss vali: 2.1085e-01, EpochTime: 0.00mins ConsumedTime: 4.33mins
+Epoch [2340/10000], Loss train: 3.6682e-04, Loss vali: 2.1119e-01, EpochTime: 0.00mins ConsumedTime: 4.37mins
+Epoch [2360/10000], Loss train: 3.4202e-04, Loss vali: 2.0423e-01, EpochTime: 0.00mins ConsumedTime: 4.40mins
+Epoch [2380/10000], Loss train: 3.1185e-04, Loss vali: 2.1337e-01, EpochTime: 0.00mins ConsumedTime: 4.44mins
+Epoch [2400/10000], Loss train: 3.3176e-04, Loss vali: 2.0042e-01, EpochTime: 0.00mins ConsumedTime: 4.47mins
+Epoch [2420/10000], Loss train: 3.0318e-04, Loss vali: 2.0511e-01, EpochTime: 0.00mins ConsumedTime: 4.50mins
+Epoch [2440/10000], Loss train: 3.0443e-04, Loss vali: 2.0670e-01, EpochTime: 0.00mins ConsumedTime: 4.54mins
+Epoch [2460/10000], Loss train: 2.9513e-04, Loss vali: 2.0409e-01, EpochTime: 0.00mins ConsumedTime: 4.57mins
+Epoch [2480/10000], Loss train: 3.2127e-04, Loss vali: 2.1112e-01, EpochTime: 0.00mins ConsumedTime: 4.60mins
+Epoch [2500/10000], Loss train: 3.2010e-04, Loss vali: 2.0801e-01, EpochTime: 0.00mins ConsumedTime: 4.64mins
+Epoch [2520/10000], Loss train: 2.8982e-04, Loss vali: 2.0500e-01, EpochTime: 0.00mins ConsumedTime: 4.67mins
+Epoch [2540/10000], Loss train: 3.2831e-04, Loss vali: 2.0740e-01, EpochTime: 0.00mins ConsumedTime: 4.70mins
+Epoch [2560/10000], Loss train: 3.0300e-04, Loss vali: 1.9955e-01, EpochTime: 0.00mins ConsumedTime: 4.74mins
+Epoch [2580/10000], Loss train: 2.9936e-04, Loss vali: 2.1281e-01, EpochTime: 0.00mins ConsumedTime: 4.77mins
+Epoch [2600/10000], Loss train: 2.7897e-04, Loss vali: 2.0020e-01, EpochTime: 0.00mins ConsumedTime: 4.80mins
+Epoch [2620/10000], Loss train: 2.8791e-04, Loss vali: 2.0809e-01, EpochTime: 0.00mins ConsumedTime: 4.84mins
+Epoch [2640/10000], Loss train: 3.8398e-04, Loss vali: 2.0952e-01, EpochTime: 0.00mins ConsumedTime: 4.87mins
+Epoch [2660/10000], Loss train: 2.9415e-04, Loss vali: 2.1016e-01, EpochTime: 0.00mins ConsumedTime: 4.90mins
+Epoch [2680/10000], Loss train: 2.8154e-04, Loss vali: 2.0600e-01, EpochTime: 0.00mins ConsumedTime: 4.94mins
+Epoch [2700/10000], Loss train: 2.6926e-04, Loss vali: 2.0910e-01, EpochTime: 0.00mins ConsumedTime: 4.97mins
+Epoch [2720/10000], Loss train: 2.8183e-04, Loss vali: 2.0623e-01, EpochTime: 0.00mins ConsumedTime: 5.00mins
+Epoch [2740/10000], Loss train: 2.5804e-04, Loss vali: 2.0198e-01, EpochTime: 0.00mins ConsumedTime: 5.04mins
+Epoch [2760/10000], Loss train: 2.6948e-04, Loss vali: 2.0606e-01, EpochTime: 0.00mins ConsumedTime: 5.07mins
+Epoch [2780/10000], Loss train: 2.6779e-04, Loss vali: 2.0592e-01, EpochTime: 0.00mins ConsumedTime: 5.10mins
+Epoch [2800/10000], Loss train: 3.0103e-04, Loss vali: 2.1010e-01, EpochTime: 0.00mins ConsumedTime: 5.14mins
+Epoch [2820/10000], Loss train: 2.6511e-04, Loss vali: 2.1311e-01, EpochTime: 0.00mins ConsumedTime: 5.17mins
+Epoch [2840/10000], Loss train: 2.7703e-04, Loss vali: 1.9901e-01, EpochTime: 0.00mins ConsumedTime: 5.21mins
+Epoch [2860/10000], Loss train: 2.5062e-04, Loss vali: 2.0808e-01, EpochTime: 0.00mins ConsumedTime: 5.24mins
+Epoch [2880/10000], Loss train: 2.5609e-04, Loss vali: 2.0391e-01, EpochTime: 0.00mins ConsumedTime: 5.27mins
+Epoch [2900/10000], Loss train: 2.4749e-04, Loss vali: 2.1029e-01, EpochTime: 0.00mins ConsumedTime: 5.31mins
+Epoch [2920/10000], Loss train: 2.6126e-04, Loss vali: 2.0752e-01, EpochTime: 0.00mins ConsumedTime: 5.34mins
+Epoch [2940/10000], Loss train: 2.3793e-04, Loss vali: 2.1236e-01, EpochTime: 0.00mins ConsumedTime: 5.38mins
+Epoch [2960/10000], Loss train: 2.5221e-04, Loss vali: 2.1342e-01, EpochTime: 0.00mins ConsumedTime: 5.41mins
+Epoch [2980/10000], Loss train: 2.4390e-04, Loss vali: 2.1330e-01, EpochTime: 0.00mins ConsumedTime: 5.44mins
+Epoch [3000/10000], Loss train: 2.6307e-04, Loss vali: 2.1066e-01, EpochTime: 0.00mins ConsumedTime: 5.48mins
+
+=============================
+Saved checkpoint at epoch 3001
+loss train 2.6307e-04
+loss vali 2.1066e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:22.pth
+
+Epoch [3020/10000], Loss train: 2.5798e-04, Loss vali: 2.1152e-01, EpochTime: 0.00mins ConsumedTime: 5.51mins
+Epoch [3040/10000], Loss train: 2.5057e-04, Loss vali: 2.1212e-01, EpochTime: 0.00mins ConsumedTime: 5.54mins
+Epoch [3060/10000], Loss train: 2.6122e-04, Loss vali: 2.0314e-01, EpochTime: 0.00mins ConsumedTime: 5.58mins
+Epoch [3080/10000], Loss train: 2.4191e-04, Loss vali: 2.1510e-01, EpochTime: 0.00mins ConsumedTime: 5.61mins
+Epoch [3100/10000], Loss train: 2.2210e-04, Loss vali: 2.1769e-01, EpochTime: 0.00mins ConsumedTime: 5.64mins
+Epoch [3120/10000], Loss train: 2.3853e-04, Loss vali: 2.1643e-01, EpochTime: 0.00mins ConsumedTime: 5.68mins
+Epoch [3140/10000], Loss train: 2.5031e-04, Loss vali: 2.0321e-01, EpochTime: 0.00mins ConsumedTime: 5.71mins
+Epoch [3160/10000], Loss train: 2.3524e-04, Loss vali: 2.0449e-01, EpochTime: 0.00mins ConsumedTime: 5.74mins
+Epoch [3180/10000], Loss train: 2.2001e-04, Loss vali: 2.0586e-01, EpochTime: 0.00mins ConsumedTime: 5.78mins
+Epoch [3200/10000], Loss train: 2.1735e-04, Loss vali: 2.0448e-01, EpochTime: 0.00mins ConsumedTime: 5.81mins
+Epoch [3220/10000], Loss train: 2.1746e-04, Loss vali: 2.1856e-01, EpochTime: 0.00mins ConsumedTime: 5.84mins
+Epoch [3240/10000], Loss train: 2.3261e-04, Loss vali: 2.1932e-01, EpochTime: 0.00mins ConsumedTime: 5.88mins
+Epoch [3260/10000], Loss train: 2.3744e-04, Loss vali: 2.1431e-01, EpochTime: 0.00mins ConsumedTime: 5.91mins
+Epoch [3280/10000], Loss train: 2.2701e-04, Loss vali: 2.1624e-01, EpochTime: 0.00mins ConsumedTime: 5.94mins
+Epoch [3300/10000], Loss train: 2.0494e-04, Loss vali: 2.1502e-01, EpochTime: 0.00mins ConsumedTime: 5.98mins
+Epoch [3320/10000], Loss train: 2.4442e-04, Loss vali: 2.1709e-01, EpochTime: 0.00mins ConsumedTime: 6.01mins
+Epoch [3340/10000], Loss train: 2.2340e-04, Loss vali: 2.1569e-01, EpochTime: 0.00mins ConsumedTime: 6.04mins
+Epoch [3360/10000], Loss train: 2.3010e-04, Loss vali: 2.1558e-01, EpochTime: 0.00mins ConsumedTime: 6.08mins
+Epoch [3380/10000], Loss train: 2.0683e-04, Loss vali: 2.0822e-01, EpochTime: 0.00mins ConsumedTime: 6.11mins
+Epoch [3400/10000], Loss train: 2.1719e-04, Loss vali: 2.0816e-01, EpochTime: 0.00mins ConsumedTime: 6.14mins
+Epoch [3420/10000], Loss train: 2.1545e-04, Loss vali: 2.1651e-01, EpochTime: 0.00mins ConsumedTime: 6.18mins
+Epoch [3440/10000], Loss train: 2.0750e-04, Loss vali: 2.1655e-01, EpochTime: 0.00mins ConsumedTime: 6.21mins
+Epoch [3460/10000], Loss train: 1.9975e-04, Loss vali: 2.2111e-01, EpochTime: 0.00mins ConsumedTime: 6.24mins
+Epoch [3480/10000], Loss train: 2.1866e-04, Loss vali: 2.1713e-01, EpochTime: 0.00mins ConsumedTime: 6.28mins
+Epoch [3500/10000], Loss train: 2.0170e-04, Loss vali: 2.1363e-01, EpochTime: 0.00mins ConsumedTime: 6.31mins
+Epoch [3520/10000], Loss train: 2.0669e-04, Loss vali: 2.1570e-01, EpochTime: 0.00mins ConsumedTime: 6.34mins
+Epoch [3540/10000], Loss train: 2.0422e-04, Loss vali: 2.1684e-01, EpochTime: 0.00mins ConsumedTime: 6.38mins
+Epoch [3560/10000], Loss train: 2.0362e-04, Loss vali: 2.1731e-01, EpochTime: 0.00mins ConsumedTime: 6.41mins
+Epoch [3580/10000], Loss train: 1.9342e-04, Loss vali: 2.1815e-01, EpochTime: 0.00mins ConsumedTime: 6.44mins
+Epoch [3600/10000], Loss train: 1.9148e-04, Loss vali: 2.1808e-01, EpochTime: 0.00mins ConsumedTime: 6.48mins
+Epoch [3620/10000], Loss train: 1.9473e-04, Loss vali: 2.1821e-01, EpochTime: 0.00mins ConsumedTime: 6.51mins
+Epoch [3640/10000], Loss train: 2.1218e-04, Loss vali: 2.1275e-01, EpochTime: 0.00mins ConsumedTime: 6.54mins
+Epoch [3660/10000], Loss train: 1.9606e-04, Loss vali: 2.1331e-01, EpochTime: 0.00mins ConsumedTime: 6.58mins
+Epoch [3680/10000], Loss train: 2.0343e-04, Loss vali: 2.1862e-01, EpochTime: 0.00mins ConsumedTime: 6.61mins
+Epoch [3700/10000], Loss train: 1.9995e-04, Loss vali: 2.1567e-01, EpochTime: 0.00mins ConsumedTime: 6.64mins
+Epoch [3720/10000], Loss train: 2.0056e-04, Loss vali: 2.1677e-01, EpochTime: 0.00mins ConsumedTime: 6.68mins
+Epoch [3740/10000], Loss train: 2.0448e-04, Loss vali: 2.1830e-01, EpochTime: 0.00mins ConsumedTime: 6.71mins
+Epoch [3760/10000], Loss train: 1.9253e-04, Loss vali: 2.1601e-01, EpochTime: 0.00mins ConsumedTime: 6.74mins
+Epoch [3780/10000], Loss train: 1.8403e-04, Loss vali: 2.1692e-01, EpochTime: 0.00mins ConsumedTime: 6.78mins
+Epoch [3800/10000], Loss train: 1.8642e-04, Loss vali: 2.1980e-01, EpochTime: 0.00mins ConsumedTime: 6.81mins
+Epoch [3820/10000], Loss train: 1.8945e-04, Loss vali: 2.1783e-01, EpochTime: 0.00mins ConsumedTime: 6.84mins
+Epoch [3840/10000], Loss train: 2.0006e-04, Loss vali: 2.1538e-01, EpochTime: 0.00mins ConsumedTime: 6.88mins
+Epoch [3860/10000], Loss train: 1.9137e-04, Loss vali: 2.1900e-01, EpochTime: 0.00mins ConsumedTime: 6.91mins
+Epoch [3880/10000], Loss train: 1.8568e-04, Loss vali: 2.1147e-01, EpochTime: 0.00mins ConsumedTime: 6.94mins
+Epoch [3900/10000], Loss train: 1.8255e-04, Loss vali: 2.1368e-01, EpochTime: 0.00mins ConsumedTime: 6.98mins
+Epoch [3920/10000], Loss train: 1.7297e-04, Loss vali: 2.1209e-01, EpochTime: 0.00mins ConsumedTime: 7.01mins
+Epoch [3940/10000], Loss train: 1.9977e-04, Loss vali: 2.1901e-01, EpochTime: 0.00mins ConsumedTime: 7.04mins
+Epoch [3960/10000], Loss train: 1.7821e-04, Loss vali: 2.1630e-01, EpochTime: 0.00mins ConsumedTime: 7.08mins
+Epoch [3980/10000], Loss train: 1.9103e-04, Loss vali: 2.1710e-01, EpochTime: 0.00mins ConsumedTime: 7.11mins
+Epoch [4000/10000], Loss train: 1.8366e-04, Loss vali: 2.2128e-01, EpochTime: 0.00mins ConsumedTime: 7.14mins
+
+=============================
+Saved checkpoint at epoch 4001
+loss train 1.8366e-04
+loss vali 2.2128e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:24.pth
+
+Epoch [4020/10000], Loss train: 1.8411e-04, Loss vali: 2.2636e-01, EpochTime: 0.00mins ConsumedTime: 7.18mins
+Epoch [4040/10000], Loss train: 1.9866e-04, Loss vali: 2.1515e-01, EpochTime: 0.00mins ConsumedTime: 7.21mins
+Epoch [4060/10000], Loss train: 1.8112e-04, Loss vali: 2.1784e-01, EpochTime: 0.00mins ConsumedTime: 7.24mins
+Epoch [4080/10000], Loss train: 1.7464e-04, Loss vali: 2.1644e-01, EpochTime: 0.00mins ConsumedTime: 7.28mins
+Epoch [4100/10000], Loss train: 1.8711e-04, Loss vali: 2.1391e-01, EpochTime: 0.00mins ConsumedTime: 7.31mins
+Epoch [4120/10000], Loss train: 1.9892e-04, Loss vali: 2.1956e-01, EpochTime: 0.00mins ConsumedTime: 7.34mins
+Epoch [4140/10000], Loss train: 1.9438e-04, Loss vali: 2.1965e-01, EpochTime: 0.00mins ConsumedTime: 7.38mins
+Epoch [4160/10000], Loss train: 1.9567e-04, Loss vali: 2.1410e-01, EpochTime: 0.00mins ConsumedTime: 7.41mins
+Epoch [4180/10000], Loss train: 1.9201e-04, Loss vali: 2.1418e-01, EpochTime: 0.00mins ConsumedTime: 7.44mins
+Epoch [4200/10000], Loss train: 1.9434e-04, Loss vali: 2.1953e-01, EpochTime: 0.00mins ConsumedTime: 7.48mins
+Epoch [4220/10000], Loss train: 1.7825e-04, Loss vali: 2.2364e-01, EpochTime: 0.00mins ConsumedTime: 7.51mins
+Epoch [4240/10000], Loss train: 1.8388e-04, Loss vali: 2.1981e-01, EpochTime: 0.00mins ConsumedTime: 7.54mins
+Epoch [4260/10000], Loss train: 1.8255e-04, Loss vali: 2.1893e-01, EpochTime: 0.00mins ConsumedTime: 7.58mins
+Epoch [4280/10000], Loss train: 1.8858e-04, Loss vali: 2.1679e-01, EpochTime: 0.00mins ConsumedTime: 7.61mins
+Epoch [4300/10000], Loss train: 1.8056e-04, Loss vali: 2.1729e-01, EpochTime: 0.00mins ConsumedTime: 7.64mins
+Epoch [4320/10000], Loss train: 1.7861e-04, Loss vali: 2.2372e-01, EpochTime: 0.00mins ConsumedTime: 7.68mins
+Epoch [4340/10000], Loss train: 1.8748e-04, Loss vali: 2.1607e-01, EpochTime: 0.00mins ConsumedTime: 7.71mins
+Epoch [4360/10000], Loss train: 1.7315e-04, Loss vali: 2.2279e-01, EpochTime: 0.00mins ConsumedTime: 7.74mins
+Epoch [4380/10000], Loss train: 1.9575e-04, Loss vali: 2.2292e-01, EpochTime: 0.00mins ConsumedTime: 7.78mins
+Epoch [4400/10000], Loss train: 1.8034e-04, Loss vali: 2.1980e-01, EpochTime: 0.00mins ConsumedTime: 7.81mins
+Epoch [4420/10000], Loss train: 1.7662e-04, Loss vali: 2.1819e-01, EpochTime: 0.00mins ConsumedTime: 7.84mins
+Epoch [4440/10000], Loss train: 1.6035e-04, Loss vali: 2.2224e-01, EpochTime: 0.00mins ConsumedTime: 7.88mins
+Epoch [4460/10000], Loss train: 1.8599e-04, Loss vali: 2.1734e-01, EpochTime: 0.00mins ConsumedTime: 7.91mins
+Epoch [4480/10000], Loss train: 1.7784e-04, Loss vali: 2.1163e-01, EpochTime: 0.00mins ConsumedTime: 7.94mins
+Epoch [4500/10000], Loss train: 1.5659e-04, Loss vali: 2.1389e-01, EpochTime: 0.00mins ConsumedTime: 7.98mins
+Epoch [4520/10000], Loss train: 1.7697e-04, Loss vali: 2.1507e-01, EpochTime: 0.00mins ConsumedTime: 8.01mins
+Epoch [4540/10000], Loss train: 1.7893e-04, Loss vali: 2.1316e-01, EpochTime: 0.00mins ConsumedTime: 8.04mins
+Epoch [4560/10000], Loss train: 1.7634e-04, Loss vali: 2.1712e-01, EpochTime: 0.00mins ConsumedTime: 8.08mins
+Epoch [4580/10000], Loss train: 1.8078e-04, Loss vali: 2.2122e-01, EpochTime: 0.00mins ConsumedTime: 8.11mins
+Epoch [4600/10000], Loss train: 1.7624e-04, Loss vali: 2.1426e-01, EpochTime: 0.00mins ConsumedTime: 8.14mins
+Epoch [4620/10000], Loss train: 1.7138e-04, Loss vali: 2.1388e-01, EpochTime: 0.00mins ConsumedTime: 8.18mins
+Epoch [4640/10000], Loss train: 1.7963e-04, Loss vali: 2.1851e-01, EpochTime: 0.00mins ConsumedTime: 8.21mins
+Epoch [4660/10000], Loss train: 1.8283e-04, Loss vali: 2.1634e-01, EpochTime: 0.00mins ConsumedTime: 8.24mins
+Epoch [4680/10000], Loss train: 1.8472e-04, Loss vali: 2.1155e-01, EpochTime: 0.00mins ConsumedTime: 8.28mins
+Epoch [4700/10000], Loss train: 2.3151e-04, Loss vali: 2.2386e-01, EpochTime: 0.00mins ConsumedTime: 8.31mins
+Epoch [4720/10000], Loss train: 1.6534e-04, Loss vali: 2.2127e-01, EpochTime: 0.00mins ConsumedTime: 8.34mins
+Epoch [4740/10000], Loss train: 1.7898e-04, Loss vali: 2.1786e-01, EpochTime: 0.00mins ConsumedTime: 8.38mins
+Epoch [4760/10000], Loss train: 1.7878e-04, Loss vali: 2.2211e-01, EpochTime: 0.00mins ConsumedTime: 8.41mins
+Epoch [4780/10000], Loss train: 1.8213e-04, Loss vali: 2.1779e-01, EpochTime: 0.00mins ConsumedTime: 8.44mins
+Epoch [4800/10000], Loss train: 1.7259e-04, Loss vali: 2.1126e-01, EpochTime: 0.00mins ConsumedTime: 8.48mins
+Epoch [4820/10000], Loss train: 1.6824e-04, Loss vali: 2.2126e-01, EpochTime: 0.00mins ConsumedTime: 8.51mins
+Epoch [4840/10000], Loss train: 1.6673e-04, Loss vali: 2.1540e-01, EpochTime: 0.00mins ConsumedTime: 8.54mins
+Epoch [4860/10000], Loss train: 1.6321e-04, Loss vali: 2.2323e-01, EpochTime: 0.00mins ConsumedTime: 8.58mins
+Epoch [4880/10000], Loss train: 1.9038e-04, Loss vali: 2.1441e-01, EpochTime: 0.00mins ConsumedTime: 8.61mins
+Epoch [4900/10000], Loss train: 1.6934e-04, Loss vali: 2.1632e-01, EpochTime: 0.00mins ConsumedTime: 8.64mins
+Epoch [4920/10000], Loss train: 1.6970e-04, Loss vali: 2.1379e-01, EpochTime: 0.00mins ConsumedTime: 8.68mins
+Epoch [4940/10000], Loss train: 1.7546e-04, Loss vali: 2.1800e-01, EpochTime: 0.00mins ConsumedTime: 8.71mins
+Epoch [4960/10000], Loss train: 1.9537e-04, Loss vali: 2.1602e-01, EpochTime: 0.00mins ConsumedTime: 8.74mins
+Epoch [4980/10000], Loss train: 1.6330e-04, Loss vali: 2.2048e-01, EpochTime: 0.00mins ConsumedTime: 8.78mins
+Epoch [5000/10000], Loss train: 1.5776e-04, Loss vali: 2.1817e-01, EpochTime: 0.00mins ConsumedTime: 8.81mins
+
+=============================
+Saved checkpoint at epoch 5001
+loss train 1.5776e-04
+loss vali 2.1817e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:26.pth
+
+Epoch [5020/10000], Loss train: 1.7947e-04, Loss vali: 2.1719e-01, EpochTime: 0.00mins ConsumedTime: 8.84mins
+Epoch [5040/10000], Loss train: 1.7416e-04, Loss vali: 2.1727e-01, EpochTime: 0.00mins ConsumedTime: 8.88mins
+Epoch [5060/10000], Loss train: 1.8182e-04, Loss vali: 2.1393e-01, EpochTime: 0.00mins ConsumedTime: 8.91mins
+Epoch [5080/10000], Loss train: 1.7082e-04, Loss vali: 2.2646e-01, EpochTime: 0.00mins ConsumedTime: 8.94mins
+Epoch [5100/10000], Loss train: 1.7294e-04, Loss vali: 2.2266e-01, EpochTime: 0.00mins ConsumedTime: 8.98mins
+Epoch [5120/10000], Loss train: 1.6195e-04, Loss vali: 2.1910e-01, EpochTime: 0.00mins ConsumedTime: 9.01mins
+Epoch [5140/10000], Loss train: 1.6890e-04, Loss vali: 2.1470e-01, EpochTime: 0.00mins ConsumedTime: 9.04mins
+Epoch [5160/10000], Loss train: 1.7736e-04, Loss vali: 2.2363e-01, EpochTime: 0.00mins ConsumedTime: 9.08mins
+Epoch [5180/10000], Loss train: 1.7538e-04, Loss vali: 2.1512e-01, EpochTime: 0.00mins ConsumedTime: 9.11mins
+Epoch [5200/10000], Loss train: 1.6873e-04, Loss vali: 2.2177e-01, EpochTime: 0.00mins ConsumedTime: 9.14mins
+Epoch [5220/10000], Loss train: 1.6760e-04, Loss vali: 2.1729e-01, EpochTime: 0.00mins ConsumedTime: 9.18mins
+Epoch [5240/10000], Loss train: 1.6286e-04, Loss vali: 2.1591e-01, EpochTime: 0.00mins ConsumedTime: 9.21mins
+Epoch [5260/10000], Loss train: 1.6007e-04, Loss vali: 2.2206e-01, EpochTime: 0.00mins ConsumedTime: 9.24mins
+Epoch [5280/10000], Loss train: 1.7383e-04, Loss vali: 2.2092e-01, EpochTime: 0.00mins ConsumedTime: 9.27mins
+Epoch [5300/10000], Loss train: 1.5982e-04, Loss vali: 2.1765e-01, EpochTime: 0.00mins ConsumedTime: 9.31mins
+Epoch [5320/10000], Loss train: 1.7838e-04, Loss vali: 2.2013e-01, EpochTime: 0.00mins ConsumedTime: 9.34mins
+Epoch [5340/10000], Loss train: 1.7980e-04, Loss vali: 2.1933e-01, EpochTime: 0.00mins ConsumedTime: 9.37mins
+Epoch [5360/10000], Loss train: 1.6473e-04, Loss vali: 2.1822e-01, EpochTime: 0.00mins ConsumedTime: 9.41mins
+Epoch [5380/10000], Loss train: 1.7053e-04, Loss vali: 2.1303e-01, EpochTime: 0.00mins ConsumedTime: 9.44mins
+Epoch [5400/10000], Loss train: 1.7207e-04, Loss vali: 2.2355e-01, EpochTime: 0.00mins ConsumedTime: 9.47mins
+Epoch [5420/10000], Loss train: 1.6327e-04, Loss vali: 2.1296e-01, EpochTime: 0.00mins ConsumedTime: 9.51mins
+Epoch [5440/10000], Loss train: 1.8148e-04, Loss vali: 2.1935e-01, EpochTime: 0.00mins ConsumedTime: 9.54mins
+Epoch [5460/10000], Loss train: 1.6342e-04, Loss vali: 2.2375e-01, EpochTime: 0.00mins ConsumedTime: 9.57mins
+Epoch [5480/10000], Loss train: 1.7524e-04, Loss vali: 2.1988e-01, EpochTime: 0.00mins ConsumedTime: 9.61mins
+Epoch [5500/10000], Loss train: 1.4940e-04, Loss vali: 2.1631e-01, EpochTime: 0.00mins ConsumedTime: 9.64mins
+Epoch [5520/10000], Loss train: 1.6523e-04, Loss vali: 2.2531e-01, EpochTime: 0.00mins ConsumedTime: 9.67mins
+Epoch [5540/10000], Loss train: 1.6202e-04, Loss vali: 2.1837e-01, EpochTime: 0.00mins ConsumedTime: 9.71mins
+Epoch [5560/10000], Loss train: 1.6439e-04, Loss vali: 2.2022e-01, EpochTime: 0.00mins ConsumedTime: 9.74mins
+Epoch [5580/10000], Loss train: 1.7298e-04, Loss vali: 2.2148e-01, EpochTime: 0.00mins ConsumedTime: 9.77mins
+Epoch [5600/10000], Loss train: 1.5779e-04, Loss vali: 2.2086e-01, EpochTime: 0.00mins ConsumedTime: 9.81mins
+Epoch [5620/10000], Loss train: 1.6098e-04, Loss vali: 2.2131e-01, EpochTime: 0.00mins ConsumedTime: 9.84mins
+Epoch [5640/10000], Loss train: 1.7457e-04, Loss vali: 2.1750e-01, EpochTime: 0.00mins ConsumedTime: 9.87mins
+Epoch [5660/10000], Loss train: 1.5122e-04, Loss vali: 2.2044e-01, EpochTime: 0.00mins ConsumedTime: 9.90mins
+Epoch [5680/10000], Loss train: 1.6736e-04, Loss vali: 2.2009e-01, EpochTime: 0.00mins ConsumedTime: 9.94mins
+Epoch [5700/10000], Loss train: 1.8003e-04, Loss vali: 2.2401e-01, EpochTime: 0.00mins ConsumedTime: 9.97mins
+Epoch [5720/10000], Loss train: 1.6361e-04, Loss vali: 2.1698e-01, EpochTime: 0.00mins ConsumedTime: 10.00mins
+Epoch [5740/10000], Loss train: 1.8210e-04, Loss vali: 2.1781e-01, EpochTime: 0.00mins ConsumedTime: 10.04mins
+Epoch [5760/10000], Loss train: 1.6663e-04, Loss vali: 2.1884e-01, EpochTime: 0.00mins ConsumedTime: 10.07mins
+Epoch [5780/10000], Loss train: 1.6261e-04, Loss vali: 2.1969e-01, EpochTime: 0.00mins ConsumedTime: 10.10mins
+Epoch [5800/10000], Loss train: 1.7427e-04, Loss vali: 2.2026e-01, EpochTime: 0.00mins ConsumedTime: 10.14mins
+Epoch [5820/10000], Loss train: 1.6550e-04, Loss vali: 2.1816e-01, EpochTime: 0.00mins ConsumedTime: 10.17mins
+Epoch [5840/10000], Loss train: 1.6134e-04, Loss vali: 2.2330e-01, EpochTime: 0.00mins ConsumedTime: 10.20mins
+Epoch [5860/10000], Loss train: 1.6679e-04, Loss vali: 2.2432e-01, EpochTime: 0.00mins ConsumedTime: 10.24mins
+Epoch [5880/10000], Loss train: 1.5706e-04, Loss vali: 2.1911e-01, EpochTime: 0.00mins ConsumedTime: 10.27mins
+Epoch [5900/10000], Loss train: 1.6018e-04, Loss vali: 2.2030e-01, EpochTime: 0.00mins ConsumedTime: 10.30mins
+Epoch [5920/10000], Loss train: 1.6139e-04, Loss vali: 2.2147e-01, EpochTime: 0.00mins ConsumedTime: 10.34mins
+Epoch [5940/10000], Loss train: 1.5162e-04, Loss vali: 2.1791e-01, EpochTime: 0.00mins ConsumedTime: 10.37mins
+Epoch [5960/10000], Loss train: 1.6006e-04, Loss vali: 2.2173e-01, EpochTime: 0.00mins ConsumedTime: 10.40mins
+Epoch [5980/10000], Loss train: 1.6803e-04, Loss vali: 2.1765e-01, EpochTime: 0.00mins ConsumedTime: 10.44mins
+Epoch [6000/10000], Loss train: 1.6274e-04, Loss vali: 2.1828e-01, EpochTime: 0.00mins ConsumedTime: 10.47mins
+
+=============================
+Saved checkpoint at epoch 6001
+loss train 1.6274e-04
+loss vali 2.1828e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:27.pth
+
+Epoch [6020/10000], Loss train: 1.7706e-04, Loss vali: 2.1858e-01, EpochTime: 0.00mins ConsumedTime: 10.51mins
+Epoch [6040/10000], Loss train: 1.6131e-04, Loss vali: 2.1949e-01, EpochTime: 0.00mins ConsumedTime: 10.54mins
+Epoch [6060/10000], Loss train: 1.7015e-04, Loss vali: 2.2388e-01, EpochTime: 0.00mins ConsumedTime: 10.57mins
+Epoch [6080/10000], Loss train: 1.6377e-04, Loss vali: 2.1777e-01, EpochTime: 0.00mins ConsumedTime: 10.61mins
+Epoch [6100/10000], Loss train: 1.6641e-04, Loss vali: 2.1888e-01, EpochTime: 0.00mins ConsumedTime: 10.64mins
+Epoch [6120/10000], Loss train: 1.6546e-04, Loss vali: 2.2202e-01, EpochTime: 0.00mins ConsumedTime: 10.67mins
+Epoch [6140/10000], Loss train: 1.6439e-04, Loss vali: 2.1940e-01, EpochTime: 0.00mins ConsumedTime: 10.71mins
+Epoch [6160/10000], Loss train: 1.6913e-04, Loss vali: 2.2036e-01, EpochTime: 0.00mins ConsumedTime: 10.74mins
+Epoch [6180/10000], Loss train: 1.6905e-04, Loss vali: 2.2369e-01, EpochTime: 0.00mins ConsumedTime: 10.77mins
+Epoch [6200/10000], Loss train: 1.5099e-04, Loss vali: 2.2686e-01, EpochTime: 0.00mins ConsumedTime: 10.81mins
+Epoch [6220/10000], Loss train: 1.5998e-04, Loss vali: 2.1567e-01, EpochTime: 0.00mins ConsumedTime: 10.84mins
+Epoch [6240/10000], Loss train: 1.7795e-04, Loss vali: 2.2308e-01, EpochTime: 0.00mins ConsumedTime: 10.87mins
+Epoch [6260/10000], Loss train: 1.5774e-04, Loss vali: 2.2519e-01, EpochTime: 0.00mins ConsumedTime: 10.91mins
+Epoch [6280/10000], Loss train: 1.7276e-04, Loss vali: 2.1906e-01, EpochTime: 0.00mins ConsumedTime: 10.94mins
+Epoch [6300/10000], Loss train: 1.5810e-04, Loss vali: 2.2045e-01, EpochTime: 0.00mins ConsumedTime: 10.97mins
+Epoch [6320/10000], Loss train: 1.5935e-04, Loss vali: 2.2448e-01, EpochTime: 0.00mins ConsumedTime: 11.01mins
+Epoch [6340/10000], Loss train: 1.5489e-04, Loss vali: 2.2216e-01, EpochTime: 0.00mins ConsumedTime: 11.04mins
+Epoch [6360/10000], Loss train: 1.7682e-04, Loss vali: 2.1470e-01, EpochTime: 0.00mins ConsumedTime: 11.07mins
+Epoch [6380/10000], Loss train: 1.5500e-04, Loss vali: 2.1703e-01, EpochTime: 0.00mins ConsumedTime: 11.11mins
+Epoch [6400/10000], Loss train: 1.6110e-04, Loss vali: 2.1231e-01, EpochTime: 0.00mins ConsumedTime: 11.14mins
+Epoch [6420/10000], Loss train: 1.8379e-04, Loss vali: 2.2324e-01, EpochTime: 0.00mins ConsumedTime: 11.17mins
+Epoch [6440/10000], Loss train: 1.5792e-04, Loss vali: 2.2097e-01, EpochTime: 0.00mins ConsumedTime: 11.21mins
+Epoch [6460/10000], Loss train: 1.6447e-04, Loss vali: 2.2176e-01, EpochTime: 0.00mins ConsumedTime: 11.24mins
+Epoch [6480/10000], Loss train: 1.6257e-04, Loss vali: 2.2033e-01, EpochTime: 0.00mins ConsumedTime: 11.27mins
+Epoch [6500/10000], Loss train: 1.7559e-04, Loss vali: 2.1925e-01, EpochTime: 0.00mins ConsumedTime: 11.31mins
+Epoch [6520/10000], Loss train: 1.6007e-04, Loss vali: 2.1853e-01, EpochTime: 0.00mins ConsumedTime: 11.34mins
+Epoch [6540/10000], Loss train: 1.5473e-04, Loss vali: 2.2036e-01, EpochTime: 0.00mins ConsumedTime: 11.37mins
+Epoch [6560/10000], Loss train: 1.5749e-04, Loss vali: 2.2086e-01, EpochTime: 0.00mins ConsumedTime: 11.41mins
+Epoch [6580/10000], Loss train: 1.6329e-04, Loss vali: 2.2350e-01, EpochTime: 0.00mins ConsumedTime: 11.44mins
+Epoch [6600/10000], Loss train: 1.5175e-04, Loss vali: 2.2299e-01, EpochTime: 0.00mins ConsumedTime: 11.47mins
+Epoch [6620/10000], Loss train: 1.5808e-04, Loss vali: 2.1847e-01, EpochTime: 0.00mins ConsumedTime: 11.51mins
+Epoch [6640/10000], Loss train: 1.8092e-04, Loss vali: 2.2604e-01, EpochTime: 0.00mins ConsumedTime: 11.54mins
+Epoch [6660/10000], Loss train: 1.7235e-04, Loss vali: 2.1466e-01, EpochTime: 0.00mins ConsumedTime: 11.57mins
+Epoch [6680/10000], Loss train: 1.6581e-04, Loss vali: 2.2155e-01, EpochTime: 0.00mins ConsumedTime: 11.61mins
+Epoch [6700/10000], Loss train: 1.5503e-04, Loss vali: 2.2313e-01, EpochTime: 0.00mins ConsumedTime: 11.64mins
+Epoch [6720/10000], Loss train: 1.4953e-04, Loss vali: 2.1912e-01, EpochTime: 0.00mins ConsumedTime: 11.67mins
+Epoch [6740/10000], Loss train: 1.7452e-04, Loss vali: 2.1973e-01, EpochTime: 0.00mins ConsumedTime: 11.71mins
+Epoch [6760/10000], Loss train: 1.6004e-04, Loss vali: 2.2146e-01, EpochTime: 0.00mins ConsumedTime: 11.74mins
+Epoch [6780/10000], Loss train: 1.5420e-04, Loss vali: 2.1959e-01, EpochTime: 0.00mins ConsumedTime: 11.77mins
+Epoch [6800/10000], Loss train: 1.6381e-04, Loss vali: 2.2062e-01, EpochTime: 0.00mins ConsumedTime: 11.81mins
+Epoch [6820/10000], Loss train: 1.6894e-04, Loss vali: 2.1697e-01, EpochTime: 0.00mins ConsumedTime: 11.84mins
+Epoch [6840/10000], Loss train: 1.6663e-04, Loss vali: 2.2086e-01, EpochTime: 0.00mins ConsumedTime: 11.87mins
+Epoch [6860/10000], Loss train: 1.5198e-04, Loss vali: 2.2346e-01, EpochTime: 0.00mins ConsumedTime: 11.91mins
+Epoch [6880/10000], Loss train: 1.5672e-04, Loss vali: 2.1717e-01, EpochTime: 0.00mins ConsumedTime: 11.94mins
+Epoch [6900/10000], Loss train: 1.5819e-04, Loss vali: 2.1868e-01, EpochTime: 0.00mins ConsumedTime: 11.97mins
+Epoch [6920/10000], Loss train: 1.5276e-04, Loss vali: 2.1678e-01, EpochTime: 0.00mins ConsumedTime: 12.01mins
+Epoch [6940/10000], Loss train: 1.6102e-04, Loss vali: 2.1887e-01, EpochTime: 0.00mins ConsumedTime: 12.04mins
+Epoch [6960/10000], Loss train: 1.5563e-04, Loss vali: 2.1896e-01, EpochTime: 0.00mins ConsumedTime: 12.07mins
+Epoch [6980/10000], Loss train: 1.7362e-04, Loss vali: 2.1802e-01, EpochTime: 0.00mins ConsumedTime: 12.11mins
+Epoch [7000/10000], Loss train: 1.5018e-04, Loss vali: 2.2328e-01, EpochTime: 0.00mins ConsumedTime: 12.14mins
+
+=============================
+Saved checkpoint at epoch 7001
+loss train 1.5018e-04
+loss vali 2.2328e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:29.pth
+
+Epoch [7020/10000], Loss train: 1.6750e-04, Loss vali: 2.1794e-01, EpochTime: 0.00mins ConsumedTime: 12.17mins
+Epoch [7040/10000], Loss train: 1.8077e-04, Loss vali: 2.2265e-01, EpochTime: 0.00mins ConsumedTime: 12.21mins
+Epoch [7060/10000], Loss train: 1.5297e-04, Loss vali: 2.2624e-01, EpochTime: 0.00mins ConsumedTime: 12.24mins
+Epoch [7080/10000], Loss train: 1.6621e-04, Loss vali: 2.2151e-01, EpochTime: 0.00mins ConsumedTime: 12.27mins
+Epoch [7100/10000], Loss train: 1.6991e-04, Loss vali: 2.2418e-01, EpochTime: 0.00mins ConsumedTime: 12.31mins
+Epoch [7120/10000], Loss train: 1.7036e-04, Loss vali: 2.1342e-01, EpochTime: 0.00mins ConsumedTime: 12.34mins
+Epoch [7140/10000], Loss train: 1.6875e-04, Loss vali: 2.1981e-01, EpochTime: 0.00mins ConsumedTime: 12.37mins
+Epoch [7160/10000], Loss train: 1.5378e-04, Loss vali: 2.1654e-01, EpochTime: 0.00mins ConsumedTime: 12.41mins
+Epoch [7180/10000], Loss train: 1.6283e-04, Loss vali: 2.1843e-01, EpochTime: 0.00mins ConsumedTime: 12.44mins
+Epoch [7200/10000], Loss train: 1.4570e-04, Loss vali: 2.1791e-01, EpochTime: 0.00mins ConsumedTime: 12.47mins
+Epoch [7220/10000], Loss train: 1.6085e-04, Loss vali: 2.2080e-01, EpochTime: 0.00mins ConsumedTime: 12.51mins
+Epoch [7240/10000], Loss train: 1.6695e-04, Loss vali: 2.2177e-01, EpochTime: 0.00mins ConsumedTime: 12.54mins
+Epoch [7260/10000], Loss train: 1.6722e-04, Loss vali: 2.1906e-01, EpochTime: 0.00mins ConsumedTime: 12.57mins
+Epoch [7280/10000], Loss train: 1.7390e-04, Loss vali: 2.1826e-01, EpochTime: 0.00mins ConsumedTime: 12.61mins
+Epoch [7300/10000], Loss train: 1.6988e-04, Loss vali: 2.2173e-01, EpochTime: 0.00mins ConsumedTime: 12.64mins
+Epoch [7320/10000], Loss train: 1.5603e-04, Loss vali: 2.2152e-01, EpochTime: 0.00mins ConsumedTime: 12.67mins
+Epoch [7340/10000], Loss train: 1.6619e-04, Loss vali: 2.1742e-01, EpochTime: 0.00mins ConsumedTime: 12.71mins
+Epoch [7360/10000], Loss train: 1.6040e-04, Loss vali: 2.1374e-01, EpochTime: 0.00mins ConsumedTime: 12.74mins
+Epoch [7380/10000], Loss train: 1.6336e-04, Loss vali: 2.1514e-01, EpochTime: 0.00mins ConsumedTime: 12.77mins
+Epoch [7400/10000], Loss train: 1.6071e-04, Loss vali: 2.2149e-01, EpochTime: 0.00mins ConsumedTime: 12.81mins
+Epoch [7420/10000], Loss train: 1.5725e-04, Loss vali: 2.2365e-01, EpochTime: 0.00mins ConsumedTime: 12.84mins
+Epoch [7440/10000], Loss train: 1.6025e-04, Loss vali: 2.1609e-01, EpochTime: 0.00mins ConsumedTime: 12.87mins
+Epoch [7460/10000], Loss train: 1.5377e-04, Loss vali: 2.1745e-01, EpochTime: 0.00mins ConsumedTime: 12.91mins
+Epoch [7480/10000], Loss train: 1.7278e-04, Loss vali: 2.1829e-01, EpochTime: 0.00mins ConsumedTime: 12.94mins
+Epoch [7500/10000], Loss train: 1.5989e-04, Loss vali: 2.2328e-01, EpochTime: 0.00mins ConsumedTime: 12.97mins
+Epoch [7520/10000], Loss train: 1.5470e-04, Loss vali: 2.2421e-01, EpochTime: 0.00mins ConsumedTime: 13.01mins
+Epoch [7540/10000], Loss train: 1.5236e-04, Loss vali: 2.2392e-01, EpochTime: 0.00mins ConsumedTime: 13.04mins
+Epoch [7560/10000], Loss train: 1.5493e-04, Loss vali: 2.1535e-01, EpochTime: 0.00mins ConsumedTime: 13.07mins
+Epoch [7580/10000], Loss train: 2.0999e-04, Loss vali: 2.1986e-01, EpochTime: 0.00mins ConsumedTime: 13.11mins
+Epoch [7600/10000], Loss train: 1.5165e-04, Loss vali: 2.1535e-01, EpochTime: 0.00mins ConsumedTime: 13.14mins
+Epoch [7620/10000], Loss train: 1.7586e-04, Loss vali: 2.2349e-01, EpochTime: 0.00mins ConsumedTime: 13.17mins
+Epoch [7640/10000], Loss train: 1.5988e-04, Loss vali: 2.2045e-01, EpochTime: 0.00mins ConsumedTime: 13.21mins
+Epoch [7660/10000], Loss train: 1.5825e-04, Loss vali: 2.2566e-01, EpochTime: 0.00mins ConsumedTime: 13.24mins
+Epoch [7680/10000], Loss train: 1.6313e-04, Loss vali: 2.1652e-01, EpochTime: 0.00mins ConsumedTime: 13.27mins
+Epoch [7700/10000], Loss train: 1.5509e-04, Loss vali: 2.2065e-01, EpochTime: 0.00mins ConsumedTime: 13.31mins
+Epoch [7720/10000], Loss train: 1.7589e-04, Loss vali: 2.1571e-01, EpochTime: 0.00mins ConsumedTime: 13.34mins
+Epoch [7740/10000], Loss train: 1.6442e-04, Loss vali: 2.1808e-01, EpochTime: 0.00mins ConsumedTime: 13.37mins
+Epoch [7760/10000], Loss train: 1.6978e-04, Loss vali: 2.2061e-01, EpochTime: 0.00mins ConsumedTime: 13.41mins
+Epoch [7780/10000], Loss train: 1.6222e-04, Loss vali: 2.2019e-01, EpochTime: 0.00mins ConsumedTime: 13.44mins
+Epoch [7800/10000], Loss train: 1.6414e-04, Loss vali: 2.2194e-01, EpochTime: 0.00mins ConsumedTime: 13.47mins
+Epoch [7820/10000], Loss train: 1.6377e-04, Loss vali: 2.1832e-01, EpochTime: 0.00mins ConsumedTime: 13.51mins
+Epoch [7840/10000], Loss train: 1.5403e-04, Loss vali: 2.2333e-01, EpochTime: 0.00mins ConsumedTime: 13.54mins
+Epoch [7860/10000], Loss train: 1.5137e-04, Loss vali: 2.1580e-01, EpochTime: 0.00mins ConsumedTime: 13.57mins
+Epoch [7880/10000], Loss train: 1.6495e-04, Loss vali: 2.1760e-01, EpochTime: 0.00mins ConsumedTime: 13.61mins
+Epoch [7900/10000], Loss train: 1.6404e-04, Loss vali: 2.2079e-01, EpochTime: 0.00mins ConsumedTime: 13.64mins
+Epoch [7920/10000], Loss train: 1.5695e-04, Loss vali: 2.2631e-01, EpochTime: 0.00mins ConsumedTime: 13.67mins
+Epoch [7940/10000], Loss train: 1.5410e-04, Loss vali: 2.2181e-01, EpochTime: 0.00mins ConsumedTime: 13.71mins
+Epoch [7960/10000], Loss train: 1.6313e-04, Loss vali: 2.1660e-01, EpochTime: 0.00mins ConsumedTime: 13.74mins
+Epoch [7980/10000], Loss train: 1.5626e-04, Loss vali: 2.2065e-01, EpochTime: 0.00mins ConsumedTime: 13.77mins
+Epoch [8000/10000], Loss train: 1.6482e-04, Loss vali: 2.1600e-01, EpochTime: 0.00mins ConsumedTime: 13.81mins
+
+=============================
+Saved checkpoint at epoch 8001
+loss train 1.6482e-04
+loss vali 2.1600e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:31.pth
+
+Epoch [8020/10000], Loss train: 1.5366e-04, Loss vali: 2.2202e-01, EpochTime: 0.00mins ConsumedTime: 13.84mins
+Epoch [8040/10000], Loss train: 1.5451e-04, Loss vali: 2.2283e-01, EpochTime: 0.00mins ConsumedTime: 13.87mins
+Epoch [8060/10000], Loss train: 1.7182e-04, Loss vali: 2.2073e-01, EpochTime: 0.00mins ConsumedTime: 13.91mins
+Epoch [8080/10000], Loss train: 1.5922e-04, Loss vali: 2.1978e-01, EpochTime: 0.00mins ConsumedTime: 13.94mins
+Epoch [8100/10000], Loss train: 1.7581e-04, Loss vali: 2.2023e-01, EpochTime: 0.00mins ConsumedTime: 13.97mins
+Epoch [8120/10000], Loss train: 1.5934e-04, Loss vali: 2.1717e-01, EpochTime: 0.00mins ConsumedTime: 14.01mins
+Epoch [8140/10000], Loss train: 1.7086e-04, Loss vali: 2.2069e-01, EpochTime: 0.00mins ConsumedTime: 14.04mins
+Epoch [8160/10000], Loss train: 1.5497e-04, Loss vali: 2.2390e-01, EpochTime: 0.00mins ConsumedTime: 14.07mins
+Epoch [8180/10000], Loss train: 1.5838e-04, Loss vali: 2.1022e-01, EpochTime: 0.00mins ConsumedTime: 14.11mins
+Epoch [8200/10000], Loss train: 1.6327e-04, Loss vali: 2.2387e-01, EpochTime: 0.00mins ConsumedTime: 14.14mins
+Epoch [8220/10000], Loss train: 1.5040e-04, Loss vali: 2.1859e-01, EpochTime: 0.00mins ConsumedTime: 14.17mins
+Epoch [8240/10000], Loss train: 1.4496e-04, Loss vali: 2.1605e-01, EpochTime: 0.00mins ConsumedTime: 14.21mins
+Epoch [8260/10000], Loss train: 1.5670e-04, Loss vali: 2.2215e-01, EpochTime: 0.00mins ConsumedTime: 14.24mins
+Epoch [8280/10000], Loss train: 1.4425e-04, Loss vali: 2.2075e-01, EpochTime: 0.00mins ConsumedTime: 14.27mins
+Epoch [8300/10000], Loss train: 1.5379e-04, Loss vali: 2.1939e-01, EpochTime: 0.00mins ConsumedTime: 14.31mins
+Epoch [8320/10000], Loss train: 1.5184e-04, Loss vali: 2.1654e-01, EpochTime: 0.00mins ConsumedTime: 14.34mins
+Epoch [8340/10000], Loss train: 1.7021e-04, Loss vali: 2.1708e-01, EpochTime: 0.00mins ConsumedTime: 14.37mins
+Epoch [8360/10000], Loss train: 1.5787e-04, Loss vali: 2.2284e-01, EpochTime: 0.00mins ConsumedTime: 14.41mins
+Epoch [8380/10000], Loss train: 1.6832e-04, Loss vali: 2.2327e-01, EpochTime: 0.00mins ConsumedTime: 14.44mins
+Epoch [8400/10000], Loss train: 1.5760e-04, Loss vali: 2.2157e-01, EpochTime: 0.00mins ConsumedTime: 14.47mins
+Epoch [8420/10000], Loss train: 1.5468e-04, Loss vali: 2.2018e-01, EpochTime: 0.00mins ConsumedTime: 14.51mins
+Epoch [8440/10000], Loss train: 1.5669e-04, Loss vali: 2.1784e-01, EpochTime: 0.00mins ConsumedTime: 14.54mins
+Epoch [8460/10000], Loss train: 1.5150e-04, Loss vali: 2.1831e-01, EpochTime: 0.00mins ConsumedTime: 14.57mins
+Epoch [8480/10000], Loss train: 1.5911e-04, Loss vali: 2.1675e-01, EpochTime: 0.00mins ConsumedTime: 14.61mins
+Epoch [8500/10000], Loss train: 1.5794e-04, Loss vali: 2.1563e-01, EpochTime: 0.00mins ConsumedTime: 14.64mins
+Epoch [8520/10000], Loss train: 1.8443e-04, Loss vali: 2.1715e-01, EpochTime: 0.00mins ConsumedTime: 14.67mins
+Epoch [8540/10000], Loss train: 1.6577e-04, Loss vali: 2.2012e-01, EpochTime: 0.00mins ConsumedTime: 14.71mins
+Epoch [8560/10000], Loss train: 1.5417e-04, Loss vali: 2.1959e-01, EpochTime: 0.00mins ConsumedTime: 14.74mins
+Epoch [8580/10000], Loss train: 1.5305e-04, Loss vali: 2.2371e-01, EpochTime: 0.00mins ConsumedTime: 14.77mins
+Epoch [8600/10000], Loss train: 1.6136e-04, Loss vali: 2.2178e-01, EpochTime: 0.00mins ConsumedTime: 14.81mins
+Epoch [8620/10000], Loss train: 1.6610e-04, Loss vali: 2.1762e-01, EpochTime: 0.00mins ConsumedTime: 14.84mins
+Epoch [8640/10000], Loss train: 1.7357e-04, Loss vali: 2.2036e-01, EpochTime: 0.00mins ConsumedTime: 14.87mins
+Epoch [8660/10000], Loss train: 1.7113e-04, Loss vali: 2.2375e-01, EpochTime: 0.00mins ConsumedTime: 14.91mins
+Epoch [8680/10000], Loss train: 1.5030e-04, Loss vali: 2.2239e-01, EpochTime: 0.00mins ConsumedTime: 14.94mins
+Epoch [8700/10000], Loss train: 1.6123e-04, Loss vali: 2.2008e-01, EpochTime: 0.00mins ConsumedTime: 14.97mins
+Epoch [8720/10000], Loss train: 1.6117e-04, Loss vali: 2.2630e-01, EpochTime: 0.00mins ConsumedTime: 15.01mins
+Epoch [8740/10000], Loss train: 1.3992e-04, Loss vali: 2.2245e-01, EpochTime: 0.00mins ConsumedTime: 15.04mins
+Epoch [8760/10000], Loss train: 1.5842e-04, Loss vali: 2.2250e-01, EpochTime: 0.00mins ConsumedTime: 15.07mins
+Epoch [8780/10000], Loss train: 1.5658e-04, Loss vali: 2.1709e-01, EpochTime: 0.00mins ConsumedTime: 15.11mins
+Epoch [8800/10000], Loss train: 1.5900e-04, Loss vali: 2.2141e-01, EpochTime: 0.00mins ConsumedTime: 15.14mins
+Epoch [8820/10000], Loss train: 1.6569e-04, Loss vali: 2.2422e-01, EpochTime: 0.00mins ConsumedTime: 15.17mins
+Epoch [8840/10000], Loss train: 1.4836e-04, Loss vali: 2.2071e-01, EpochTime: 0.00mins ConsumedTime: 15.21mins
+Epoch [8860/10000], Loss train: 1.5414e-04, Loss vali: 2.2046e-01, EpochTime: 0.00mins ConsumedTime: 15.24mins
+Epoch [8880/10000], Loss train: 1.5871e-04, Loss vali: 2.2111e-01, EpochTime: 0.00mins ConsumedTime: 15.27mins
+Epoch [8900/10000], Loss train: 1.5172e-04, Loss vali: 2.2067e-01, EpochTime: 0.00mins ConsumedTime: 15.31mins
+Epoch [8920/10000], Loss train: 1.6557e-04, Loss vali: 2.1982e-01, EpochTime: 0.00mins ConsumedTime: 15.34mins
+Epoch [8940/10000], Loss train: 1.5610e-04, Loss vali: 2.2017e-01, EpochTime: 0.00mins ConsumedTime: 15.37mins
+Epoch [8960/10000], Loss train: 1.5605e-04, Loss vali: 2.2269e-01, EpochTime: 0.00mins ConsumedTime: 15.41mins
+Epoch [8980/10000], Loss train: 1.6052e-04, Loss vali: 2.2031e-01, EpochTime: 0.00mins ConsumedTime: 15.44mins
+Epoch [9000/10000], Loss train: 1.6592e-04, Loss vali: 2.1803e-01, EpochTime: 0.00mins ConsumedTime: 15.47mins
+
+=============================
+Saved checkpoint at epoch 9001
+loss train 1.6592e-04
+loss vali 2.1803e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:32.pth
+
+Epoch [9020/10000], Loss train: 1.4885e-04, Loss vali: 2.2053e-01, EpochTime: 0.00mins ConsumedTime: 15.51mins
+Epoch [9040/10000], Loss train: 1.5681e-04, Loss vali: 2.1655e-01, EpochTime: 0.00mins ConsumedTime: 15.54mins
+Epoch [9060/10000], Loss train: 1.6189e-04, Loss vali: 2.2332e-01, EpochTime: 0.00mins ConsumedTime: 15.57mins
+Epoch [9080/10000], Loss train: 1.5844e-04, Loss vali: 2.2336e-01, EpochTime: 0.00mins ConsumedTime: 15.61mins
+Epoch [9100/10000], Loss train: 1.5807e-04, Loss vali: 2.1749e-01, EpochTime: 0.00mins ConsumedTime: 15.64mins
+Epoch [9120/10000], Loss train: 1.6332e-04, Loss vali: 2.2137e-01, EpochTime: 0.00mins ConsumedTime: 15.67mins
+Epoch [9140/10000], Loss train: 1.5318e-04, Loss vali: 2.1844e-01, EpochTime: 0.00mins ConsumedTime: 15.71mins
+Epoch [9160/10000], Loss train: 1.6051e-04, Loss vali: 2.2345e-01, EpochTime: 0.00mins ConsumedTime: 15.74mins
+Epoch [9180/10000], Loss train: 1.5946e-04, Loss vali: 2.1897e-01, EpochTime: 0.00mins ConsumedTime: 15.77mins
+Epoch [9200/10000], Loss train: 1.5621e-04, Loss vali: 2.2216e-01, EpochTime: 0.00mins ConsumedTime: 15.81mins
+Epoch [9220/10000], Loss train: 1.4789e-04, Loss vali: 2.2233e-01, EpochTime: 0.00mins ConsumedTime: 15.84mins
+Epoch [9240/10000], Loss train: 1.5838e-04, Loss vali: 2.1966e-01, EpochTime: 0.00mins ConsumedTime: 15.87mins
+Epoch [9260/10000], Loss train: 1.5383e-04, Loss vali: 2.2269e-01, EpochTime: 0.00mins ConsumedTime: 15.91mins
+Epoch [9280/10000], Loss train: 1.4582e-04, Loss vali: 2.2234e-01, EpochTime: 0.00mins ConsumedTime: 15.94mins
+Epoch [9300/10000], Loss train: 1.5647e-04, Loss vali: 2.2049e-01, EpochTime: 0.00mins ConsumedTime: 15.97mins
+Epoch [9320/10000], Loss train: 1.6340e-04, Loss vali: 2.2282e-01, EpochTime: 0.00mins ConsumedTime: 16.01mins
+Epoch [9340/10000], Loss train: 1.6029e-04, Loss vali: 2.2096e-01, EpochTime: 0.00mins ConsumedTime: 16.04mins
+Epoch [9360/10000], Loss train: 1.5787e-04, Loss vali: 2.1949e-01, EpochTime: 0.00mins ConsumedTime: 16.07mins
+Epoch [9380/10000], Loss train: 1.5189e-04, Loss vali: 2.2251e-01, EpochTime: 0.00mins ConsumedTime: 16.11mins
+Epoch [9400/10000], Loss train: 1.5088e-04, Loss vali: 2.2600e-01, EpochTime: 0.00mins ConsumedTime: 16.14mins
+Epoch [9420/10000], Loss train: 1.7699e-04, Loss vali: 2.2271e-01, EpochTime: 0.00mins ConsumedTime: 16.17mins
+Epoch [9440/10000], Loss train: 1.6070e-04, Loss vali: 2.1739e-01, EpochTime: 0.00mins ConsumedTime: 16.21mins
+Epoch [9460/10000], Loss train: 1.5284e-04, Loss vali: 2.2200e-01, EpochTime: 0.00mins ConsumedTime: 16.24mins
+Epoch [9480/10000], Loss train: 1.6547e-04, Loss vali: 2.2014e-01, EpochTime: 0.00mins ConsumedTime: 16.27mins
+Epoch [9500/10000], Loss train: 1.5608e-04, Loss vali: 2.2135e-01, EpochTime: 0.00mins ConsumedTime: 16.31mins
+Epoch [9520/10000], Loss train: 1.6879e-04, Loss vali: 2.2048e-01, EpochTime: 0.00mins ConsumedTime: 16.34mins
+Epoch [9540/10000], Loss train: 1.5805e-04, Loss vali: 2.2483e-01, EpochTime: 0.00mins ConsumedTime: 16.37mins
+Epoch [9560/10000], Loss train: 1.6156e-04, Loss vali: 2.2483e-01, EpochTime: 0.00mins ConsumedTime: 16.41mins
+Epoch [9580/10000], Loss train: 1.5733e-04, Loss vali: 2.2293e-01, EpochTime: 0.00mins ConsumedTime: 16.44mins
+Epoch [9600/10000], Loss train: 1.5057e-04, Loss vali: 2.2342e-01, EpochTime: 0.00mins ConsumedTime: 16.47mins
+Epoch [9620/10000], Loss train: 1.5359e-04, Loss vali: 2.2041e-01, EpochTime: 0.00mins ConsumedTime: 16.51mins
+Epoch [9640/10000], Loss train: 1.5794e-04, Loss vali: 2.2082e-01, EpochTime: 0.00mins ConsumedTime: 16.54mins
+Epoch [9660/10000], Loss train: 1.5796e-04, Loss vali: 2.2125e-01, EpochTime: 0.00mins ConsumedTime: 16.57mins
+Epoch [9680/10000], Loss train: 1.7344e-04, Loss vali: 2.1896e-01, EpochTime: 0.00mins ConsumedTime: 16.61mins
+Epoch [9700/10000], Loss train: 1.6774e-04, Loss vali: 2.2094e-01, EpochTime: 0.00mins ConsumedTime: 16.64mins
+Epoch [9720/10000], Loss train: 1.5524e-04, Loss vali: 2.2240e-01, EpochTime: 0.00mins ConsumedTime: 16.67mins
+Epoch [9740/10000], Loss train: 1.5160e-04, Loss vali: 2.2004e-01, EpochTime: 0.00mins ConsumedTime: 16.71mins
+Epoch [9760/10000], Loss train: 1.6956e-04, Loss vali: 2.1901e-01, EpochTime: 0.00mins ConsumedTime: 16.74mins
+Epoch [9780/10000], Loss train: 1.7378e-04, Loss vali: 2.2301e-01, EpochTime: 0.00mins ConsumedTime: 16.77mins
+Epoch [9800/10000], Loss train: 1.5830e-04, Loss vali: 2.2601e-01, EpochTime: 0.00mins ConsumedTime: 16.81mins
+Epoch [9820/10000], Loss train: 1.6130e-04, Loss vali: 2.2264e-01, EpochTime: 0.00mins ConsumedTime: 16.84mins
+Epoch [9840/10000], Loss train: 1.6022e-04, Loss vali: 2.1881e-01, EpochTime: 0.00mins ConsumedTime: 16.87mins
+Epoch [9860/10000], Loss train: 1.8965e-04, Loss vali: 2.1870e-01, EpochTime: 0.00mins ConsumedTime: 16.91mins
+Epoch [9880/10000], Loss train: 1.7185e-04, Loss vali: 2.2250e-01, EpochTime: 0.00mins ConsumedTime: 16.94mins
+Epoch [9900/10000], Loss train: 1.5903e-04, Loss vali: 2.2059e-01, EpochTime: 0.00mins ConsumedTime: 16.97mins
+Epoch [9920/10000], Loss train: 1.5682e-04, Loss vali: 2.1891e-01, EpochTime: 0.00mins ConsumedTime: 17.01mins
+Epoch [9940/10000], Loss train: 1.6743e-04, Loss vali: 2.1933e-01, EpochTime: 0.00mins ConsumedTime: 17.04mins
+Epoch [9960/10000], Loss train: 1.6703e-04, Loss vali: 2.1822e-01, EpochTime: 0.00mins ConsumedTime: 17.07mins
+Epoch [9980/10000], Loss train: 1.5963e-04, Loss vali: 2.1812e-01, EpochTime: 0.00mins ConsumedTime: 17.11mins
+
+=============================
+Saved checkpoint at epoch 10000
+loss train 1.7021e-04
+loss vali 2.1812e-01
+Saved as /lustre/scratch125/ids/team117-assembly/hackathon/trained_model/likelihood_graph_madeup/checkpoint_20241016-00:34.pth
+

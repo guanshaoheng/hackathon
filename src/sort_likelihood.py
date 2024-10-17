@@ -16,9 +16,10 @@ export PYTHONPATH=src:$PYTHONPATH
 /nfs/users/nfs_s/sg35/.conda/envs/autohic_new/bin/python src/sort_likelihood.py -o -d results/sorted_hic_madeup/sorted_results.txt
 """
 
-def sort_fragments_according_likelihood_matrix(
+def sort_fragments_according_likelihood_or_distance_matrix(
         likelihood_mx:torch.tensor, nfrags:int, frag_lens:torch.Tensor, threshold:float=0.005, name:str=None,
         echo_flag:bool=False,
+        mx_type:str="likelihood",
         )->Tuple[List[List[int]], List[List[bool]]]:
     """
         split the likelihood matrix by chromosomes
@@ -33,6 +34,15 @@ def sort_fragments_according_likelihood_matrix(
             chromosomes: the list of the fragments included in each chromosome
             inversed_flag: the flag of the orientation of the fragments, same shape with chromosomes
     """
+    likelihood_mx = likelihood_mx.clone()
+    if mx_type == "distance":
+        likelihood_mx = -likelihood_mx  # NOTE: after this in-place operation, the likelihood_mx is changed in the out scope    
+        threshold = -0.8
+    elif mx_type == "likelihood":
+        pass
+    else:
+        raise ValueError(f"The mx_type {mx_type} is not in [distance, likelihood]")
+
     frag_lens = frag_lens[:nfrags]
     if likelihood_mx.shape == torch.Size([nfrags, nfrags, 4]):
         pass
@@ -40,6 +50,11 @@ def sort_fragments_according_likelihood_matrix(
         likelihood_mx = likelihood_mx[:2*nfrags, :2*nfrags].reshape([nfrags, 2, nfrags, 2]).transpose(1, 2).reshape([nfrags, nfrags, 4])
     else:
         raise ValueError(f"The shape of the likelihood matrix is {likelihood_mx.shape}, not equal to {nfrags, nfrags, 4} and not equal to {2 * nfrags, 2 * nfrags}, please organize the shape before input the likelihood matrix.")
+
+    # make sure the value is not all 0 in the left-bottom corner
+    # Finished: make sure the two indices are mirrored
+    lower_triangle_indices = torch.tril_indices(nfrags, nfrags, offset=-1)
+    likelihood_mx[lower_triangle_indices[0], lower_triangle_indices[1]] = likelihood_mx[lower_triangle_indices[1], lower_triangle_indices[0]][:, [0, 2, 1, 3]]
 
     # FINISHED sort the fragments acoording to fragment size, before sorting the fragments according to likelihood
     order_lens = torch.argsort(frag_lens, descending=True)
@@ -63,6 +78,7 @@ def sort_fragments_according_likelihood_matrix(
     chromosomes = []
     chromosomes_inversed = []
     for frag in range(nfrags): # iterate over all the fragments
+        if not_visited.sum() == 0: break
         if not not_visited[frag]: continue
         chromosome = deque()
         chromosome_inversed = deque()
@@ -81,36 +97,6 @@ def sort_fragments_according_likelihood_matrix(
     chromosome_order_lens = torch.argsort(chromosome_lens, descending=True)
     chromosomes = [chromosomes[i.item()] for i in chromosome_order_lens]
     chromosomes_inversed = [chromosomes_inversed[i.item()] for i in chromosome_order_lens]
-    # inversed_chromosomes = [[False for _ in chromosome] for chromosome in chromosomes]
-
-    # # set the orientations of the fragments
-    # for chromosome, inversed_chromosome in zip(chromosomes, inversed_chromosomes):
-    #     if len(chromosome) < 2: continue
-    #     last_inversed = False
-    #     score_first_not_inversed = 0
-    #     for i in range(1, len(chromosome)):
-    #         """
-    #             0 -- 1
-    #             |    |
-    #             3 -- 2
-    #         """
-    #         idx1, idx2 =  chromosome[i-1], chromosome[i]
-    #         # print(likelihood_mx[2 * idx1: 2 * idx1 + 2, 2 * idx2: 2 * idx2 + 2])
-    #         likelihood_tmp = likelihood_mx[idx1, idx2, :].reshape((2, 2))
-    #         if last_inversed: # consider the head of last one
-    #             if likelihood_tmp[0, 0] >= likelihood_tmp[0, 1]:  # head - head
-    #                 last_inversed = False
-    #             else:  # head - tail
-    #                 inversed_chromosome[i] = True
-    #                 last_inversed = True
-    #             score_first_not_inversed += max(likelihood_tmp[0, :])
-    #         else: # consider the tail of last one
-    #             if likelihood_tmp[1, 0] > likelihood_tmp[1, 1]: # end - head 
-    #                 last_inversed = False
-    #             else: # end - tail
-    #                 inversed_chromosome[i] = True
-    #                 last_inversed = True
-    #             score_first_not_inversed += max(likelihood_tmp[1, :])
 
     if echo_flag:
         print("Fragment order Likelihood:")
@@ -328,7 +314,7 @@ def main():
             scaffid=scaffid, frag_id=frag_id, frag_lens=frag_lens, name=name, echo_flag=debug_flag
         )
 
-        chromosomes_sorted_from_likelihood, inversed_flag_sorted_from_likelihood = sort_fragments_according_likelihood_matrix(likelihood_mx, nfrags=n_frags, frag_lens=frag_lens, name=name, echo_flag=True)
+        chromosomes_sorted_from_likelihood, inversed_flag_sorted_from_likelihood = sort_fragments_according_likelihood_or_distance_matrix(likelihood_mx, nfrags=n_frags, frag_lens=frag_lens, name=name, echo_flag=True)
 
         output_into_file(
             name=name,
