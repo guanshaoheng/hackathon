@@ -1,0 +1,5 @@
+dataset/*
+trained_model/*
+train_log.txt
+src/__pycache__/*
+src/.ipynb_checkpoints/*

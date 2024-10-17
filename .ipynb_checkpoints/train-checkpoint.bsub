@@ -1,0 +1,25 @@
+#!/bin/bash
+
+memory_request=$((50 * 1000))
+num_cpus=4
+gpu_card_num=1
+gpu_mem="38G"
+# gpu_model="NVIDIA_H100" # NOTE: i am not sure why we can not specify
+group_name=hpag-pipeline
+fout_name=train_likelihood
+command_script="./train.sh"
+que_name=gpu-huge
+
+
+bsub \
+    -gpu "num=${gpu_card_num}:gmem=${gpu_mem}:j_exclusive=yes" \
+    -o ${fout_name}.out \
+    -e ${fout_name}.err \
+    -J ${fout_name}  \
+    -q ${que_name} \
+    -n ${num_cpus} \
+    -R "span[hosts=1] select[mem>${memory_request}] rusage[mem=${memory_request}]" \
+    -M${memory_request} \
+    -G ${group_name} \
+    ${command_script} 
+

@@ -13,10 +13,6 @@ WANTED_RESOLUTION = 0  # 1024 512 256 128 64 32, if the resolution is 0, that me
 DIR_SAVE_FULL_HICMX_HUMAN = "dataset/full_hic_madeup"
 DIR_SAVE_TRAIN_DATA_HUMAN ="dataset/train_data_madeup"
 
-DIR_SAVE_FULL_HICMX_HUMAN_TEST = "dataset/full_hic_madeup_test"
-DIR_SAVE_TRAIN_DATA_HUMAN_TEST ="dataset/train_data_madeup_test"
-
-
 
 WORKSPACE_PATH = "/lustre/scratch126/cellgen/team205/sl37/hackathon"
 
@@ -93,6 +89,5 @@ if args.curated_data_flag is not None:
 # model save path & predicted likelihood matrix save path
 PATH_SAVE_CHECHPOINT_GRAGPH_LIKELIHOOD = os.path.join(WORKSPACE_PATH, "trained_model/likelihood_graph_madeup")
 PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH = os.path.join(WORKSPACE_PATH,  "results/predicted_likelihood_graph_madeup")
-PATH_SAVE_PREDICTED_LIKELIHOOD_GRAPH_TEST = os.path.join(WORKSPACE_PATH,  "results/predicted_likelihood_graph_madeup_test")
 
 
