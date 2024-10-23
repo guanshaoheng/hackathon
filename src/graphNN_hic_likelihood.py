@@ -224,7 +224,6 @@ def restore_model(
         device:torch.device)->Tuple[Graph_HiC_Likelihood, torch.optim.Adam, int, torch.optim.lr_scheduler.StepLR]:
     # =============================
     #         intialize model
-    #         intialize model
     print("Initializing model...")
     model = Graph_HiC_Likelihood().to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001) # use L2 regularization to penalize the large weights via "weight_decay"
@@ -625,9 +624,9 @@ def get_paded_tensor(num_samples:int, n_frags:List[int], device:torch.device)->T
     return is_paded, is_paded_2d, is_paded_2d_output
 
 
-def save_checkpoint(modelname, epoch:int, loss:float, loss_vali:float, history)->None:
+def save_checkpoint(epoch:int, loss:float, loss_vali:float, history)->None:
     model_save_dir = PATH_SAVE_CHECHPOINT_GRAGPH_LIKELIHOOD
-    fname = os.path.join(model_save_dir, f'{modelname}.checkpoint_{get_time_stamp()}.pth')
+    fname = os.path.join(model_save_dir, f'checkpoint_{get_time_stamp()}.pth')
     checkpoint = {
         'epoch': epoch+1,
         'model_state_dict': model.state_dict(),
@@ -637,8 +636,6 @@ def save_checkpoint(modelname, epoch:int, loss:float, loss_vali:float, history)-
         "loss_vali": loss_vali,
     }
     torch.save(checkpoint, fname)
-    history_df = pd.DataFrame(data=history, columns=['train_mse', 'vali_mse'])
-    history_df.to_csv(fname.replace('.pth', '.csv'))
     print(f"\n============================="
           f"\nSaved checkpoint at epoch {epoch+1}"
           f"\nloss train {loss:.4e}"
@@ -751,13 +748,9 @@ if __name__ == "__main__":
     # =============================
                # Initialising the model
     print("Restoring model from ", PATH_SAVE_CHECHPOINT_GRAGPH_LIKELIHOOD)
-    # model, optimizer, epoch_already, scheduler = restore_model(
-    #     '.', 
-    #     device)
-    model = VGAE(Graphvae()).to("cuda")
-    epoch_already = 0
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.98)
+    model, optimizer, epoch_already, scheduler = restore_model(
+        get_newest_checkpoint(PATH_SAVE_CHECHPOINT_GRAGPH_LIKELIHOOD), 
+        device)
 
     # =============================
     #           training data loading

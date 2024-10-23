@@ -17,7 +17,7 @@ export PYTHONPATH=src:$PYTHONPATH
 """
 
 def sort_fragments_according_likelihood_or_distance_matrix(
-        likelihood_mx:torch.tensor, nfrags:int, frag_lens:torch.Tensor, threshold:float=0.005, name:str=None,
+        likelihood_mx:torch.tensor, nfrags:int, frag_lens:torch.Tensor, threshold:float=0.001, name:str=None,
         echo_flag:bool=False,
         mx_type:str="likelihood",
         )->Tuple[List[List[int]], List[List[bool]]]:

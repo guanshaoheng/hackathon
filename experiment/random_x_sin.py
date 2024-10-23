@@ -20,7 +20,7 @@ class Net(torch.nn.Module):
         return x
 
 
-NUM_FEATURES = 3
+NUM_FEATURES = 2
 
 epoch_max = 2000
 net = Net()
